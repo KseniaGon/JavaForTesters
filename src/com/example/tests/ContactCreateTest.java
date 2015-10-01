@@ -1,13 +1,12 @@
 package com.example.tests;
 
-import org.junit.*;
+import org.testng.annotations.Test;
 import org.openqa.selenium.*;
 import org.openqa.selenium.support.ui.Select;
 
 public class ContactCreateTest extends TestBase {
   @Test
   public void createContact() throws Exception {
-    driver.get(baseUrl + "/addressbookv4.1.4/");
     driver.findElement(By.linkText("add new")).click();
     driver.findElement(By.name("firstname")).clear();
     driver.findElement(By.name("firstname")).sendKeys("Test 2");

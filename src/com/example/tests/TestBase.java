@@ -1,27 +1,30 @@
 package com.example.tests;
 
-import java.util.concurrent.TimeUnit;
-
-import org.junit.After;
-import org.junit.Before;
+import org.testng.annotations.AfterSuite;
+import org.testng.annotations.BeforeMethod;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.firefox.FirefoxDriver;
+import com.example.tests.helpers.DriverManager;
 
 public class TestBase {
 
 	protected WebDriver driver;
-	protected String baseUrl;
+	private String baseUrl;
+	private DriverManager driverManager;
+	
+	public TestBase() {
+		this.driverManager = new DriverManager();
+		this.baseUrl = "http://localhost";
+	}
 
-	@Before
+	@BeforeMethod
 	public void setUp() throws Exception {
-	    driver = new FirefoxDriver();
-	    baseUrl = "http://localhost/";
-	    driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
+	    this.driver = this.driverManager.getWebDriver();
+	    this.driver.get(this.baseUrl + "/addressbookv4.1.4/");
 	  }
 
-	@After
+	@AfterSuite
 	public void tearDown() throws Exception {
-	    driver.quit();
-	  }
+		this.driverManager.tearDown();
+	}
 
 }
