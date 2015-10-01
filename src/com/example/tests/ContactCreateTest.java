@@ -1,26 +1,12 @@
 package com.example.tests;
 
-import java.util.concurrent.TimeUnit;
 import org.junit.*;
-import static org.junit.Assert.*;
 import org.openqa.selenium.*;
-import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.support.ui.Select;
 
-public class ContactCreateTest {
-  private WebDriver driver;
-  private String baseUrl;
-  private StringBuffer verificationErrors = new StringBuffer();
-
-  @Before
-  public void setUp() throws Exception {
-    driver = new FirefoxDriver();
-    baseUrl = "http://localhost/";
-    driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
-  }
-
+public class ContactCreateTest extends TestBase {
   @Test
-  public void test2() throws Exception {
+  public void createContact() throws Exception {
     driver.get(baseUrl + "/addressbookv4.1.4/");
     driver.findElement(By.linkText("add new")).click();
     driver.findElement(By.name("firstname")).clear();
@@ -43,14 +29,5 @@ public class ContactCreateTest {
     driver.findElement(By.name("byear")).sendKeys("1980");
     new Select(driver.findElement(By.name("new_group"))).selectByVisibleText("Test1");
     driver.findElement(By.name("submit")).click();
-  }
-
-  @After
-  public void tearDown() throws Exception {
-    driver.quit();
-    String verificationErrorString = verificationErrors.toString();
-    if (!"".equals(verificationErrorString)) {
-      fail(verificationErrorString);
-    }
   }
 }
