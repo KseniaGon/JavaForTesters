@@ -2,33 +2,30 @@ package com.example.tests;
 
 import org.testng.annotations.AfterSuite;
 import org.testng.annotations.BeforeMethod;
-import org.openqa.selenium.WebDriver;
-import com.example.tests.helpers.DriverManager;
+import com.example.tests.helpers.ApplicationManager;
 
 public class TestBase {
 
-	protected WebDriver driver;
-	private String baseUrl;
-	private DriverManager driverManager;
-	
-	public TestBase() {
-		this.driverManager = new DriverManager();
-		this.baseUrl = "http://localhost";
-	}
+	protected ApplicationManager applicationManager;
+			
 
+	public TestBase() {
+		this.applicationManager = new ApplicationManager("http://localhost");
+	}
+	
 	@BeforeMethod
 	public void setUp() throws Exception {
-	    this.driver = this.driverManager.getWebDriver();
-	    this.driver.get(this.baseUrl + "/addressbookv4.1.4/");
+		this.applicationManager.setUp();
 	  }
 
 	@AfterSuite
 	public void tearDown() throws Exception {
-		this.driverManager.tearDown();
+		this.applicationManager.suiteTearDown();
 	}
 
 	protected String getWellKnownGroupName() {
 		return "test 1";
 	}
+
 
 }
