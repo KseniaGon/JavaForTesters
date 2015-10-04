@@ -1,32 +1,52 @@
 package com.example.tests;
 
 import org.testng.annotations.Test;
+
+import com.example.tests.helpers.Contact;
+
 import org.openqa.selenium.*;
 import org.openqa.selenium.support.ui.Select;
 
 public class ContactCreateTest extends TestBase {
   @Test
   public void createContact() throws Exception {
-    driver.findElement(By.linkText("add new")).click();
-    driver.findElement(By.name("firstname")).clear();
-    driver.findElement(By.name("firstname")).sendKeys("Test 2");
-    driver.findElement(By.name("lastname")).clear();
-    driver.findElement(By.name("lastname")).sendKeys("Address 2");
-    driver.findElement(By.name("lastname")).clear();
-    driver.findElement(By.name("lastname")).sendKeys("Last Name 2");
-    driver.findElement(By.name("address")).clear();
-    driver.findElement(By.name("address")).sendKeys("Address 2");
-    driver.findElement(By.name("home")).clear();
-    driver.findElement(By.name("home")).sendKeys("1234567890");
-    driver.findElement(By.name("mobile")).clear();
-    driver.findElement(By.name("mobile")).sendKeys("1234567890");
-    driver.findElement(By.name("email")).clear();
-    driver.findElement(By.name("email")).sendKeys("test2@test.com");
-    new Select(driver.findElement(By.name("bday"))).selectByVisibleText("3");
-    new Select(driver.findElement(By.name("bmonth"))).selectByVisibleText("February");
-    driver.findElement(By.name("byear")).clear();
-    driver.findElement(By.name("byear")).sendKeys("1980");
-    new Select(driver.findElement(By.name("new_group"))).selectByVisibleText("Test1");
-    driver.findElement(By.name("submit")).click();
+	Contact contact = getTestContactData(getWellKnownGroupName());
+    createGroupInternal(contact);
   }
+
+	private Contact getTestContactData(String groupName) {
+		return new Contact(
+			"firstName",
+			"lastName",
+			"address",
+			"1234567890",
+			"1234567890",
+			"tet1@test1.test",
+			"3",
+			"February",
+			"1980",
+			groupName);
+	}
+	
+	private void createGroupInternal(Contact contact) {
+		driver.findElement(By.linkText("add new")).click();
+	    driver.findElement(By.name("firstname")).clear();
+	    driver.findElement(By.name("firstname")).sendKeys(contact.firstName);
+	    driver.findElement(By.name("lastname")).clear();
+	    driver.findElement(By.name("lastname")).sendKeys(contact.lastName);
+	    driver.findElement(By.name("address")).clear();
+	    driver.findElement(By.name("address")).sendKeys(contact.address);
+	    driver.findElement(By.name("home")).clear();
+	    driver.findElement(By.name("home")).sendKeys(contact.homePhone);
+	    driver.findElement(By.name("mobile")).clear();
+	    driver.findElement(By.name("mobile")).sendKeys(contact.mobilePhone);
+	    driver.findElement(By.name("email")).clear();
+	    driver.findElement(By.name("email")).sendKeys(contact.email);
+	    new Select(driver.findElement(By.name("bday"))).selectByVisibleText(contact.birthDay);
+	    new Select(driver.findElement(By.name("bmonth"))).selectByVisibleText(contact.birthMonth);
+	    driver.findElement(By.name("byear")).clear();
+	    driver.findElement(By.name("byear")).sendKeys(contact.birthYear);
+	    new Select(driver.findElement(By.name("new_group"))).selectByVisibleText(contact.groupName);
+	    driver.findElement(By.name("submit")).click();
+	}
 }

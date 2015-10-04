@@ -27,4 +27,8 @@ public class TestBase {
 		this.driverManager.tearDown();
 	}
 
+	protected String getWellKnownGroupName() {
+		return "test 1";
+	}
+
 }
