@@ -8,7 +8,7 @@ import org.openqa.selenium.firefox.FirefoxDriver;
 public class DriverManager {
 	private static WebDriver driver;
 
-	public WebDriver getWebDriver() throws Exception {
+	public WebDriver getWebDriver() {
 	    if( driver==null ) {
 	    	driver = new FirefoxDriver();
 	    	driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);

@@ -1,12 +1,13 @@
 package com.example.tests.helpers;
 
-import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.support.ui.Select;
 
 public class ApplicationManager {
 	private String baseUrl;
 	private DriverManager driverManager;
+	private ContactHelper contactHelper;
+	private GroupHelper groupHelper;
+	private NavigationHelper navigationHelper;
 
 	public ApplicationManager(String baseUrl) {
 		this.driverManager = new DriverManager();
@@ -24,37 +25,34 @@ public class ApplicationManager {
 	}
 	
 	public void createGroup(Group group) {
-		driver.findElement(By.linkText("groups")).click();
-	    driver.findElement(By.name("new")).click();
-	    driver.findElement(By.name("group_name")).clear();
-	    driver.findElement(By.name("group_name")).sendKeys(group.name);
-	    driver.findElement(By.name("group_header")).clear();
-	    driver.findElement(By.name("group_header")).sendKeys(group.header);
-	    driver.findElement(By.name("group_footer")).clear();
-	    driver.findElement(By.name("group_footer")).sendKeys(group.footer);
-	    driver.findElement(By.name("submit")).click();
+		getNavigationHelper().navigateTo("groups");
+	    getGroupHelper().create(group);
 	}
 
 	public void createContact(Contact contact) {
-		driver.findElement(By.linkText("add new")).click();
-	    driver.findElement(By.name("firstname")).clear();
-	    driver.findElement(By.name("firstname")).sendKeys(contact.firstName);
-	    driver.findElement(By.name("lastname")).clear();
-	    driver.findElement(By.name("lastname")).sendKeys(contact.lastName);
-	    driver.findElement(By.name("address")).clear();
-	    driver.findElement(By.name("address")).sendKeys(contact.address);
-	    driver.findElement(By.name("home")).clear();
-	    driver.findElement(By.name("home")).sendKeys(contact.homePhone);
-	    driver.findElement(By.name("mobile")).clear();
-	    driver.findElement(By.name("mobile")).sendKeys(contact.mobilePhone);
-	    driver.findElement(By.name("email")).clear();
-	    driver.findElement(By.name("email")).sendKeys(contact.email);
-	    new Select(driver.findElement(By.name("bday"))).selectByVisibleText(contact.birthDay);
-	    new Select(driver.findElement(By.name("bmonth"))).selectByVisibleText(contact.birthMonth);
-	    driver.findElement(By.name("byear")).clear();
-	    driver.findElement(By.name("byear")).sendKeys(contact.birthYear);
-	    new Select(driver.findElement(By.name("new_group"))).selectByVisibleText(contact.groupName);
-	    driver.findElement(By.name("submit")).click();
+		getNavigationHelper().navigateTo("add new");
+		getContactHelper().createContact(contact);
+	}
+
+	private GroupHelper getGroupHelper() {
+		if(this.groupHelper==null) {
+			this.groupHelper = new GroupHelper(this.driverManager);
+		}
+		return this.groupHelper;
+	}
+
+	private ContactHelper getContactHelper() {
+		if(this.contactHelper==null) {
+			this.contactHelper = new ContactHelper(this.driverManager);
+		}
+		return this.contactHelper;
+	}
+
+	private NavigationHelper getNavigationHelper() {
+		if(this.navigationHelper==null) {
+			this.navigationHelper = new NavigationHelper(this.driverManager);
+		}
+		return this.navigationHelper;
 	}
 
 }
