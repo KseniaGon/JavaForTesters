@@ -10,4 +10,7 @@ public class Group {
 		this.header = header;
 		this.footer = footer;
 	}
+
+	public Group() {
+	}
 }

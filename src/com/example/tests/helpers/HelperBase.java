@@ -19,16 +19,22 @@ public class HelperBase {
 	}
 
 	protected WebElement findElementByLinkText(String linkText) {
-		return this.driverManager.getWebDriver().findElement(By.linkText(linkText));
+		return findElementBy(By.linkText(linkText));
 	}
 	
 	protected WebElement findElementByName(String elementName) {
-		return this.driverManager.getWebDriver().findElement(By.name(elementName));
+		return findElementBy(By.name(elementName));
+	}
+
+	protected WebElement findElementBy(By locator) {
+		return this.driverManager.getWebDriver().findElement(locator);
 	}
 	
 	protected void fillInput(String elementName, String value) {
-		findElementByName(elementName).clear();
-		findElementByName(elementName).sendKeys(value);
+		if(value!=null) {
+			findElementByName(elementName).clear();
+			findElementByName(elementName).sendKeys(value);
+		}
 	}
 
 	protected void selectByVisibleText(String elementName, String text) {

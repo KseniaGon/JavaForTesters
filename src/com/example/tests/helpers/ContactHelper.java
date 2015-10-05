@@ -6,7 +6,7 @@ public class ContactHelper extends HelperBase {
 		super(driverManager);
 	}
 
-	public void createContact(Contact contact) {
+	public void create(Contact contact) {
 		findElementByLinkText("add new").click();
 		fillInput("firstname", contact.firstName);
 		fillInput("lastname", contact.lastName);

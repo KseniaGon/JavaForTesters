@@ -29,11 +29,22 @@ public class ApplicationManager {
 	    getGroupHelper().create(group);
 	}
 
-	public void createContact(Contact contact) {
-		getNavigationHelper().navigateTo("add new");
-		getContactHelper().createContact(contact);
+	public void updateGroup(int index, Group group) {
+		getNavigationHelper().navigateTo("groups");
+	    getGroupHelper().update(index, group);
 	}
 
+	public void deleteGroup(int index) {
+		getNavigationHelper().navigateTo("groups");
+	    getGroupHelper().delete(index);
+	}
+
+	public void createContact(Contact contact) {
+		getNavigationHelper().navigateTo("add new");
+		getContactHelper().create(contact);
+	}
+
+	
 	private GroupHelper getGroupHelper() {
 		if(this.groupHelper==null) {
 			this.groupHelper = new GroupHelper(this.driverManager);
