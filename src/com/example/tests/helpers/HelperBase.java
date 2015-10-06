@@ -38,7 +38,9 @@ public class HelperBase {
 	}
 
 	protected void selectByVisibleText(String elementName, String text) {
-		new Select(this.driverManager.getWebDriver().findElement(By.name(elementName))).selectByVisibleText(text);
+		if( text!=null) {
+			new Select(this.driverManager.getWebDriver().findElement(By.name(elementName))).selectByVisibleText(text);
+		}
 	}
 	
 }

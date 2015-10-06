@@ -44,6 +44,10 @@ public class ApplicationManager {
 		getContactHelper().create(contact);
 	}
 
+	public void updateContact(int i, Contact contact) {
+		getNavigationHelper().navigateTo("home");
+		getContactHelper().update(i, contact);		
+	}
 	
 	private GroupHelper getGroupHelper() {
 		if(this.groupHelper==null) {
@@ -64,6 +68,10 @@ public class ApplicationManager {
 			this.navigationHelper = new NavigationHelper(this.driverManager);
 		}
 		return this.navigationHelper;
+	}
+
+	public void deleteContact(int i) {
+		getContactHelper().delete(i);
 	}
 
 }

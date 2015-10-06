@@ -25,4 +25,8 @@ public class Contact {
 		this.birthYear = birthYear;
 		this.groupName = groupName;
 	}
+
+	public Contact() {
+		// TODO Auto-generated constructor stub
+	}
 }
