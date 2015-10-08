@@ -1,6 +1,10 @@
 package com.example.tests.helpers;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.openqa.selenium.By;
+import org.openqa.selenium.WebElement;
 
 public class GroupHelper extends HelperBase {
 	public GroupHelper(DriverManager driverManager) {
@@ -25,7 +29,7 @@ public class GroupHelper extends HelperBase {
 	}
 
 	protected void selectGroup(int index) {
-		findElementBy(By.xpath(String.format("//input[@name='selected[]'][%d]", index))).click();
+		findElementBy(By.xpath(String.format("//input[@name='selected[]'][%d]", index+1))).click();
 	}
 
 	public void update(int index, Group group) {
@@ -34,4 +38,21 @@ public class GroupHelper extends HelperBase {
 		fillForm(group);
 		findElementByName("update").click();
 	}
+
+
+	public List<Group> getGroups() {
+		List<WebElement> elements = findElementsBy(By.xpath("//input[@name='selected[]']"));
+		List<Group> groups = new ArrayList<Group>();
+
+		for (int i = 0; i < elements.size(); i++) {
+			WebElement element = elements.get(i);
+
+			Group group = new Group();
+			//<input name="selected[]" value="3" title="Select (test 1)" type="checkbox">test 1<br>
+			group.name = element.getAttribute("title").replaceAll("Select \\((.*)\\)", "$1");
+
+			groups.add(group);		}
+		return groups;
+	}
+
 }

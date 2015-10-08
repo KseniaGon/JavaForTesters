@@ -1,5 +1,7 @@
 package com.example.tests.helpers;
 
+import java.util.List;
+
 import org.openqa.selenium.WebDriver;
 
 public class ApplicationManager {
@@ -72,6 +74,11 @@ public class ApplicationManager {
 
 	public void deleteContact(int i) {
 		getContactHelper().delete(i);
+	}
+
+	public List<Group> getGroups() {
+		getNavigationHelper().navigateTo("groups");
+		return this.getGroupHelper().getGroups();
 	}
 
 }
