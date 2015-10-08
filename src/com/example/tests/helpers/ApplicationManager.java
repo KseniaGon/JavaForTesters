@@ -73,12 +73,18 @@ public class ApplicationManager {
 	}
 
 	public void deleteContact(int i) {
+		getNavigationHelper().navigateTo("home");
 		getContactHelper().delete(i);
 	}
 
 	public List<Group> getGroups() {
 		getNavigationHelper().navigateTo("groups");
 		return this.getGroupHelper().getGroups();
+	}
+
+	public List<Contact> getContacts() {
+		getNavigationHelper().navigateTo("home");
+		return this.getContactHelper().getContacts();
 	}
 
 }
