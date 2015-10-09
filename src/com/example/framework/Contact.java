@@ -67,10 +67,10 @@ public class Contact implements Comparable<Contact> {
 
 	@Override
 	public int compareTo(Contact other) {
-		int result = this.firstName.compareToIgnoreCase(other.firstName);
+		int result = this.lastName.compareToIgnoreCase(other.lastName);
 
 		if( result==0 ) {
-			return this.lastName.compareToIgnoreCase(other.lastName);
+			return this.firstName.compareToIgnoreCase(other.firstName);
 		}
 
 		return result;

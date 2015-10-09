@@ -10,14 +10,12 @@ import com.example.framework.Group;
 
 public class GroupCreationTest extends GroupTestsBase {
 
-	@Test
-	public void createGroup() throws Exception {
+	@Test(dataProvider = "randomDataProvider")
+	public void createGroup(Group group) throws Exception {
 		List<Group> oldList = this.getGroups();
 
-		Group group = getGroupTestData();
-		ApplicationManager r = this.applicationManager;
-		r.getNavigationHelper().navigateTo("groups");
-		r.getGroupHelper().create(group);
+		this.applicationManager.getNavigationHelper().navigateTo("groups");
+		this.applicationManager.getGroupHelper().create(group);
 
 		oldList.add(group);
 		oldList.sort(null);

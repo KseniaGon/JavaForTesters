@@ -8,11 +8,12 @@ import org.testng.annotations.Test;
 import com.example.framework.Contact;
 
 public class ContactCreateTest extends ContactTestsBase {
-	@Test
-	public void createContact() throws Exception {
+	
+	@Test(dataProvider = "randomDataProvider")
+	public void createContact(Contact contact) throws Exception {
 		List<Contact> oldList = this.getContacts();
 		
-		Contact contact = getTestContactData(getWellKnownGroupName());
+		contact.groupName = getWellKnownGroupName();
 
 		this.applicationManager.getNavigationHelper().navigateTo("add new");
 		this.applicationManager.getContactHelper().create(contact);
@@ -22,19 +23,5 @@ public class ContactCreateTest extends ContactTestsBase {
 		
 		List<Contact> newList = this.getContacts();
 		assertEquals(oldList, newList);
-	}
-
-	private Contact getTestContactData(String groupName) {
-		return new Contact(
-				"firstName",
-				"lastName",
-				"address",
-				"1234567890",
-				"1234567890",
-				"tet1@test1.test",
-				"3",
-				"February",
-				"1980",
-				groupName);
 	}
 }

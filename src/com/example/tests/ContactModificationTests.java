@@ -10,15 +10,11 @@ import com.example.framework.Contact;
 
 public class ContactModificationTests extends ContactTestsBase {
 
-	@Test
-	public void UpdateContact() {
+	@Test(dataProvider = "randomDataProvider")
+	public void UpdateContact(Contact contact) {
 		List<Contact> oldList = this.getContacts();
 		
-		Contact contact = new Contact();
-		contact.firstName = "Updated first name";
-		contact.lastName = "Updated last name";
-		
-		int index = 0;
+		int index = this.getRandomValue(oldList.size()-1);
 		this.applicationManager.getNavigationHelper().navigateTo("home");
 		this.applicationManager.getContactHelper().update(index, contact);
 		

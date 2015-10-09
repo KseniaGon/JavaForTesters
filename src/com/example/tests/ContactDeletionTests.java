@@ -14,7 +14,7 @@ public class ContactDeletionTests extends ContactTestsBase {
 	public void DeleteContact() {
 		List<Contact> oldList = this.getContacts();
 		
-		int index = 1;
+		int index = this.getRandomValue(oldList.size()-1);
 		this.applicationManager.getNavigationHelper().navigateTo("home");
 		this.applicationManager.getContactHelper().delete(index);
 

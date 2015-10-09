@@ -1,6 +1,10 @@
 package com.example.tests;
 
+import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
+
+import org.testng.annotations.DataProvider;
 
 import com.example.framework.Group;
 
@@ -9,6 +13,22 @@ public class GroupTestsBase extends TestBase {
 	protected List<Group> getGroups() {
 		this.applicationManager.getNavigationHelper().navigateTo("groups");
 		return this.applicationManager.getGroupHelper().getGroups();
+	}
+
+	@DataProvider
+	public Iterator<Object[]> randomDataProvider() {
+		List<Object[]> result = new ArrayList<Object[]>();
+
+		for(int i=0; i<5; i++) {
+			Group group = new Group();
+			group.name = this.generateRandomString("name");
+			group.header = this.generateRandomString("header");
+			group.header = this.generateRandomString("footer");
+
+			result.add(new Object[] { group  });
+		}
+
+		return result.iterator();
 	}
 
 }

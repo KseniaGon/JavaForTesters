@@ -14,7 +14,7 @@ public class GroupDeletionTests extends GroupTestsBase {
 	public void DeleteGroup() {
 		List<Group> oldList = this.getGroups();
 
-		int index = 0;
+		int index = this.getRandomValue(oldList.size()-1);
 		this.applicationManager.getNavigationHelper().navigateTo("groups");
 		this.applicationManager.getGroupHelper().delete(index);
 
