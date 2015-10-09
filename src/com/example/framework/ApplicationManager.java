@@ -1,4 +1,4 @@
-package com.example.tests.helpers;
+package com.example.framework;
 
 import java.util.List;
 

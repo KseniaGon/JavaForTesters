@@ -1,4 +1,4 @@
-package com.example.tests.helpers;
+package com.example.framework;
 
 public class Contact implements Comparable<Contact> {
 	@Override

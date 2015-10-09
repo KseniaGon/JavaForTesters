@@ -1,4 +1,4 @@
-package com.example.tests.helpers;
+package com.example.framework;
 
 public class Group implements Comparable<Group> {
 	@Override

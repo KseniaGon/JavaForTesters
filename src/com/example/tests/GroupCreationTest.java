@@ -5,7 +5,7 @@ import java.util.List;
 import static org.testng.Assert.assertEquals;
 import org.testng.annotations.Test;
 
-import com.example.tests.helpers.Group;
+import com.example.framework.Group;
 
 public class GroupCreationTest extends TestBase {
 

@@ -6,7 +6,7 @@ import java.util.List;
 
 import org.testng.annotations.Test;
 
-import com.example.tests.helpers.Contact;
+import com.example.framework.Contact;
 
 public class ContactModificationTests extends TestBase {
 

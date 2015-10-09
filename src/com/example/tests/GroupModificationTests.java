@@ -6,7 +6,7 @@ import java.util.List;
 
 import org.testng.annotations.Test;
 
-import com.example.tests.helpers.Group;
+import com.example.framework.Group;
 
 public class GroupModificationTests extends TestBase {
 

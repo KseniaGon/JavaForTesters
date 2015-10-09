@@ -2,7 +2,8 @@ package com.example.tests;
 
 import org.testng.annotations.AfterSuite;
 import org.testng.annotations.BeforeMethod;
-import com.example.tests.helpers.ApplicationManager;
+
+import com.example.framework.ApplicationManager;
 
 public class TestBase {
 

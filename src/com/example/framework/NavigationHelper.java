@@ -1,4 +1,4 @@
-package com.example.tests.helpers;
+package com.example.framework;
 
 public class NavigationHelper extends HelperBase {
 	public NavigationHelper(DriverManager driverManager) {
