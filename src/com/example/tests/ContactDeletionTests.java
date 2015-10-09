@@ -8,16 +8,18 @@ import org.testng.annotations.Test;
 
 import com.example.framework.Contact;
 
-public class ContactDeletionTests extends TestBase {
+public class ContactDeletionTests extends ContactTestsBase {
 
 	@Test
 	public void DeleteContact() {
-		List<Contact> oldList = this.applicationManager.getContacts();
+		List<Contact> oldList = this.getContacts();
 		
 		int index = 1;
-		this.applicationManager.deleteContact(index);
+		this.applicationManager.getNavigationHelper().navigateTo("home");
+		this.applicationManager.getContactHelper().delete(index);
+
 		oldList.remove(index);
 		
-		assertEquals(oldList, this.applicationManager.getContacts());		
+		assertEquals(oldList, this.getContacts());		
 	}
 }

@@ -7,18 +7,20 @@ import org.testng.annotations.Test;
 
 import com.example.framework.Contact;
 
-public class ContactCreateTest extends TestBase {
+public class ContactCreateTest extends ContactTestsBase {
 	@Test
 	public void createContact() throws Exception {
-		List<Contact> oldList = this.applicationManager.getContacts();
+		List<Contact> oldList = this.getContacts();
 		
 		Contact contact = getTestContactData(getWellKnownGroupName());
-		this.applicationManager.createContact(contact);
+
+		this.applicationManager.getNavigationHelper().navigateTo("add new");
+		this.applicationManager.getContactHelper().create(contact);
 		
 		oldList.add(contact);
 		oldList.sort(null);
 		
-		List<Contact> newList = this.applicationManager.getContacts();
+		List<Contact> newList = this.getContacts();
 		assertEquals(oldList, newList);
 	}
 

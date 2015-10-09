@@ -8,17 +8,18 @@ import org.testng.annotations.Test;
 
 import com.example.framework.Group;
 
-public class GroupDeletionTests extends TestBase {
+public class GroupDeletionTests extends GroupTestsBase {
 
 	@Test
 	public void DeleteGroup() {
-		List<Group> oldList = this.applicationManager.getGroups();
+		List<Group> oldList = this.getGroups();
 
 		int index = 0;
-		this.applicationManager.deleteGroup(index);
+		this.applicationManager.getNavigationHelper().navigateTo("groups");
+		this.applicationManager.getGroupHelper().delete(index);
 
 		oldList.remove(index);
 
-		assertEquals(oldList, this.applicationManager.getGroups());
+		assertEquals(oldList, this.getGroups());
 	}
 }
