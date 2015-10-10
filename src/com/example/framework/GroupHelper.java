@@ -7,14 +7,59 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 
 public class GroupHelper extends HelperBase {
+	private static List<Group> cache;
+	
 	public GroupHelper(DriverManager driverManager) {
 		super(driverManager);
 	}
 
 	public void create(Group group) {
-		findElementByName("new").click();
+		clickByName("new");
 		fillForm(group);
-		findElementByName("submit").click();
+
+		try {
+			clickByName("submit");
+		}
+		finally {
+			invaldateCache();
+		}
+
+	}
+
+	public void delete(int index) {
+		selectGroup(index);
+
+		try{
+			clickByName("delete");
+		}
+		finally {
+			invaldateCache();
+		}
+	}
+
+
+	public void update(int index, Group group) {
+		selectGroup(index);
+		clickByName("edit");
+		fillForm(group);
+		
+		try {
+			clickByName("update");
+		}
+		finally {
+			invaldateCache();
+		}
+	}
+
+	public List<Group> getGroups() {
+		if( cache==null ) {
+			cache = ensureGroups();
+		}
+		return cache;
+	}
+
+	protected void invaldateCache() {
+		cache = null;
 	}
 
 	protected void fillForm(Group group) {
@@ -23,24 +68,7 @@ public class GroupHelper extends HelperBase {
 		fillInput("group_footer", group.footer);
 	}
 
-	public void delete(int index) {
-		selectGroup(index);
-		findElementByName("delete").click();
-	}
-
-	protected void selectGroup(int index) {
-		findElementBy(By.xpath(String.format("//input[@name='selected[]'][%d]", index+1))).click();
-	}
-
-	public void update(int index, Group group) {
-		selectGroup(index);
-		findElementByName("edit").click();
-		fillForm(group);
-		findElementByName("update").click();
-	}
-
-
-	public List<Group> getGroups() {
+	protected List<Group> ensureGroups() {
 		List<WebElement> elements = findElementsBy(By.xpath("//input[@name='selected[]']"));
 		List<Group> groups = new ArrayList<Group>();
 
@@ -55,4 +83,9 @@ public class GroupHelper extends HelperBase {
 		return groups;
 	}
 
+	protected void selectGroup(int index) {
+		findElementBy(By.xpath(String.format("//input[@name='selected[]'][%d]", index+1))).click();
+	}
+
+	
 }

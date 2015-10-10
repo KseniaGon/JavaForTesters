@@ -49,4 +49,12 @@ public class HelperBase {
 		}
 	}
 
+	protected void clickByName(String name) {
+		findElementByName(name).click();
+	}
+
+	protected void clickByXPath(String xPathExpression) {
+		findElementBy(By.xpath(xPathExpression)).click();
+	}
+
 }

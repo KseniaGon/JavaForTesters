@@ -7,6 +7,7 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 
 public class ContactHelper extends HelperBase {
+	private static List<Contact> cache;
 
 	public ContactHelper(DriverManager driverManager) {
 		super(driverManager);
@@ -15,18 +16,60 @@ public class ContactHelper extends HelperBase {
 	public void create(Contact contact) {
 		findElementByLinkText("add new").click();
 		fillForm(contact);
-		findElementByName("submit").click();
+
+		try {
+			clickByName("submit");
+		}
+		finally {
+			invalidateCache();
+		}
 	}
 
 	public void update(int index, Contact contact) {
 		selectContact(index);
 		fillForm(contact);
-		findElementBy(By.xpath("//input[@value='Update'][@name='update']")).click();
+
+		try {
+			clickByXPath("//input[@value='Update'][@name='update']");
+		}
+		finally {
+			invalidateCache();
+		}
 	}
 
 	public void delete(int index) {
 		selectContact(index);
-		findElementBy(By.xpath("//input[@value='Delete'][@name='update']")).click();
+		try{
+			clickByXPath("//input[@value='Delete'][@name='update']");
+		}
+		finally {
+			invalidateCache();
+		}
+	}
+
+	public List<Contact> getContacts() {
+		if( cache==null ) {
+			cache = ensureContacts();
+		}
+		return cache;
+	}
+
+	private void invalidateCache() {
+		cache = null;
+	}
+
+	private List<Contact> ensureContacts() {
+		List<WebElement> elements = findElementsBy(By.xpath("//input[@name='selected[]']"));
+		List<Contact> contacts = new ArrayList<Contact>();
+
+		for (int i = 0; i < elements.size(); i++) {
+			Contact contact = new Contact();
+			contact.lastName = findElementBy(By.xpath(getCellXPath(i, 2))).getText();
+			contact.firstName = findElementBy(By.xpath(getCellXPath(i, 3))).getText();
+
+			contacts.add(contact);
+		}
+		return contacts;
 	}
 
 	private void selectContact(int index) {
@@ -44,20 +87,6 @@ public class ContactHelper extends HelperBase {
 		selectByVisibleText("bmonth", contact.birthMonth);
 		fillInput("byear", contact.birthYear);
 		selectByVisibleText("new_group", contact.groupName);
-	}
-
-	public List<Contact> getContacts() {
-		List<WebElement> elements = findElementsBy(By.xpath("//input[@name='selected[]']"));
-		List<Contact> contacts = new ArrayList<Contact>();
-
-		for (int i = 0; i < elements.size(); i++) {
-			Contact contact = new Contact();
-			contact.lastName = findElementBy(By.xpath(getCellXPath(i, 2))).getText();
-			contact.firstName = findElementBy(By.xpath(getCellXPath(i, 3))).getText();
-
-			contacts.add(contact);
-		}
-		return contacts;
 	}
 
 	private String getCellXPath(int row, int position) {
