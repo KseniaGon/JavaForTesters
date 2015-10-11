@@ -37,14 +37,14 @@ public class HelperBase {
 	}
 
 	protected void fillInput(String elementName, String value) {
-		if(value!=null) {
+		if (value != null) {
 			findElementByName(elementName).clear();
 			findElementByName(elementName).sendKeys(value);
 		}
 	}
 
 	protected void selectByVisibleText(String elementName, String text) {
-		if( text!=null) {
+		if (text != null) {
 			new Select(this.driverManager.getWebDriver().findElement(By.name(elementName))).selectByVisibleText(text);
 		}
 	}
@@ -57,4 +57,12 @@ public class HelperBase {
 		findElementBy(By.xpath(xPathExpression)).click();
 	}
 
+	protected String getText(WebElement element) {
+		return element.getText();
+		// https://code.google.com/p/selenium/issues/detail?id=4905
+		// return
+		// (String)((JavascriptExecutor)this.driverManager.getWebDriver())
+		// .executeScript("return arguments[0].innerText ||
+		// arguments[0].textContent;", element);
+	}
 }

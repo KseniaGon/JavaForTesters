@@ -59,13 +59,19 @@ public class ContactHelper extends HelperBase {
 	}
 
 	private List<Contact> ensureContacts() {
-		List<WebElement> elements = findElementsBy(By.xpath("//input[@name='selected[]']"));
+		List<WebElement> firstNames = findElementsBy(By.xpath("//table[@id='maintable']/tbody/tr/td[2]"));
+		List<WebElement> lastNames = findElementsBy(By.xpath("//table[@id='maintable']/tbody/tr/td[3]"));
 		List<Contact> contacts = new ArrayList<Contact>();
 
-		for (int i = 0; i < elements.size(); i++) {
+		int size = lastNames.size();
+		if(size>1) {
+			size--; // "Select all" row
+		}
+		
+		for (int i = 0; i < size; i++) {
 			Contact contact = new Contact();
-			contact.lastName = findElementBy(By.xpath(getCellXPath(i, 2))).getText();
-			contact.firstName = findElementBy(By.xpath(getCellXPath(i, 3))).getText();
+			contact.lastName = getText(lastNames.get(i));
+			contact.firstName = getText(firstNames.get(i));
 
 			contacts.add(contact);
 		}
@@ -77,8 +83,11 @@ public class ContactHelper extends HelperBase {
 	}
 
 	private void fillForm(Contact contact) {
-		fillInput("firstname", contact.firstName);
-		fillInput("lastname", contact.lastName);
+		// First Name and Last Name are swapped in Contact table (Home page)
+		// If you rely on checkbox ID -- it is fine, if you relay on values in table, you should swap these values
+		fillInput("firstname", contact.lastName);
+		fillInput("lastname", contact.firstName);
+		
 		fillInput("address", contact.address);
 		fillInput("home", contact.homePhone);
 		fillInput("mobile", contact.mobilePhone);
