@@ -12,24 +12,24 @@ public class GroupCreationTest extends GroupTestsBase {
 
 	@Test(dataProvider = "randomDataProvider")
 	public void createGroup(Group group) throws Exception {
-		List<Group> oldList = this.getGroups();
+		List<Group> oldList = getGroups();
 
-		this.applicationManager.getNavigationHelper().navigateTo("groups");
-		this.applicationManager.getGroupHelper().create(group);
+		applicationManager.getNavigationHelper().navigateTo("groups");
+		applicationManager.getGroupHelper().create(group);
 
 		oldList.add(group);
 		oldList.sort(null);
 
-		assertEquals(oldList, this.getGroups());
+		assertEquals(oldList, getGroups());
 	}
 
 	@Test
 	public void createGroupWithMultiLineFooter() throws Exception {
-		List<Group> oldList = this.getGroups();
+		List<Group> oldList = getGroups();
 
 		Group group = getGroupTestData();
 		group.footer = "Test \n\r Footer";
-		ApplicationManager r = this.applicationManager;
+		ApplicationManager r = applicationManager;
 		r.getNavigationHelper().navigateTo("groups");
 		r.getGroupHelper().create(group);
 

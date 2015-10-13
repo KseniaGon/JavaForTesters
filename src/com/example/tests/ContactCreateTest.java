@@ -11,17 +11,17 @@ public class ContactCreateTest extends ContactTestsBase {
 	
 	@Test(dataProvider = "randomDataProvider")
 	public void createContact(Contact contact) throws Exception {
-		List<Contact> oldList = this.getContacts();
+		List<Contact> oldList = getContacts();
 		
 		contact.groupName = getWellKnownGroupName();
 
-		this.applicationManager.getNavigationHelper().navigateTo("add new");
-		this.applicationManager.getContactHelper().create(contact);
+		applicationManager.getNavigationHelper().navigateTo("add new");
+		applicationManager.getContactHelper().create(contact);
 		
 		oldList.add(contact);
 		oldList.sort(null);
 		
-		List<Contact> newList = this.getContacts();
+		List<Contact> newList = getContacts();
 		assertEquals(oldList, newList);
 	}
 }

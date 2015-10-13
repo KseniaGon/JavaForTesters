@@ -12,14 +12,14 @@ public class ContactDeletionTests extends ContactTestsBase {
 
 	@Test
 	public void DeleteContact() {
-		List<Contact> oldList = this.getContacts();
+		List<Contact> oldList = getContacts();
 		
-		int index = this.getRandomValue(oldList.size()-1);
-		this.applicationManager.getNavigationHelper().navigateTo("home");
-		this.applicationManager.getContactHelper().delete(index);
+		int index = getRandomValue(oldList.size()-1);
+		applicationManager.getNavigationHelper().navigateTo("home");
+		applicationManager.getContactHelper().delete(index);
 
 		oldList.remove(index);
 		
-		assertEquals(oldList, this.getContacts());		
+		assertEquals(oldList, getContacts());		
 	}
 }

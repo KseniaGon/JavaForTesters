@@ -12,17 +12,17 @@ public class ContactModificationTests extends ContactTestsBase {
 
 	@Test(dataProvider = "randomDataProvider")
 	public void UpdateContact(Contact contact) {
-		List<Contact> oldList = this.getContacts();
+		List<Contact> oldList = getContacts();
 		
-		int index = this.getRandomValue(oldList.size()-1);
-		this.applicationManager.getNavigationHelper().navigateTo("home");
-		this.applicationManager.getContactHelper().update(index, contact);
+		int index = getRandomValue(oldList.size()-1);
+		applicationManager.getNavigationHelper().navigateTo("home");
+		applicationManager.getContactHelper().update(index, contact);
 		
 		oldList.remove(index);
 		oldList.add(contact);
 		oldList.sort(null);
 		
-		assertEquals(oldList, this.getContacts());			
+		assertEquals(oldList, getContacts());			
 	}
 	
 }

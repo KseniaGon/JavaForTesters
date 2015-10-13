@@ -29,11 +29,11 @@ public class HelperBase {
 	}
 
 	protected WebElement findElementBy(By locator) {
-		return this.driverManager.getWebDriver().findElement(locator);
+		return driverManager.getWebDriver().findElement(locator);
 	}
 
 	protected List<WebElement> findElementsBy(By locator) {
-		return this.driverManager.getWebDriver().findElements(locator);
+		return driverManager.getWebDriver().findElements(locator);
 	}
 
 	protected void fillInput(String elementName, String value) {
@@ -45,7 +45,7 @@ public class HelperBase {
 
 	protected void selectByVisibleText(String elementName, String text) {
 		if (text != null) {
-			new Select(this.driverManager.getWebDriver().findElement(By.name(elementName))).selectByVisibleText(text);
+			new Select(driverManager.getWebDriver().findElement(By.name(elementName))).selectByVisibleText(text);
 		}
 	}
 
@@ -61,7 +61,7 @@ public class HelperBase {
 		return element.getText();
 		// https://code.google.com/p/selenium/issues/detail?id=4905
 		// return
-		// (String)((JavascriptExecutor)this.driverManager.getWebDriver())
+		// (String)((JavascriptExecutor)driverManager.getWebDriver())
 		// .executeScript("return arguments[0].innerText ||
 		// arguments[0].textContent;", element);
 	}

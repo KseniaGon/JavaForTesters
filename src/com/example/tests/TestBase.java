@@ -13,17 +13,17 @@ public class TestBase {
 			
 
 	public TestBase() {
-		this.applicationManager = new ApplicationManager("http://localhost");
+		applicationManager = new ApplicationManager("http://localhost");
 	}
 	
 	@BeforeMethod
 	public void setUp() throws Exception {
-		this.applicationManager.setUp();
+		applicationManager.setUp();
 	  }
 
 	@AfterSuite
 	public void tearDown() throws Exception {
-		this.applicationManager.suiteTearDown();
+		applicationManager.suiteTearDown();
 	}
 
 	protected String getWellKnownGroupName() {

@@ -11,8 +11,8 @@ import com.example.framework.Group;
 public class GroupTestsBase extends TestBase {
 
 	protected List<Group> getGroups() {
-		this.applicationManager.getNavigationHelper().navigateTo("groups");
-		return this.applicationManager.getGroupHelper().getGroups();
+		applicationManager.getNavigationHelper().navigateTo("groups");
+		return applicationManager.getGroupHelper().getGroups();
 	}
 
 	@DataProvider
@@ -21,9 +21,9 @@ public class GroupTestsBase extends TestBase {
 
 		for(int i=0; i<5; i++) {
 			Group group = new Group();
-			group.name = this.generateRandomString("name");
-			group.header = this.generateRandomString("header");
-			group.header = this.generateRandomString("footer");
+			group.name = generateRandomString("name");
+			group.header = generateRandomString("header");
+			group.header = generateRandomString("footer");
 
 			result.add(new Object[] { group  });
 		}

@@ -7,36 +7,36 @@ public class ApplicationManager {
 	private NavigationHelper navigationHelper;
 
 	public ApplicationManager(String baseUrl) {
-		this.driverManager = new DriverManager(baseUrl);
+		driverManager = new DriverManager(baseUrl);
 	}
 
 	public void setUp() throws Exception {
-		this.driverManager.setUp();
+		driverManager.setUp();
 	}
 
 	public void suiteTearDown() throws Exception {
-		this.driverManager.tearDown();
+		driverManager.tearDown();
 	}
 
 	public GroupHelper getGroupHelper() {
-		if(this.groupHelper==null) {
-			this.groupHelper = new GroupHelper(this.driverManager);
+		if(groupHelper==null) {
+			groupHelper = new GroupHelper(driverManager);
 		}
-		return this.groupHelper;
+		return groupHelper;
 	}
 
 	public ContactHelper getContactHelper() {
-		if(this.contactHelper==null) {
-			this.contactHelper = new ContactHelper(this.driverManager);
+		if(contactHelper==null) {
+			contactHelper = new ContactHelper(driverManager);
 		}
-		return this.contactHelper;
+		return contactHelper;
 	}
 
 	public NavigationHelper getNavigationHelper() {
-		if(this.navigationHelper==null) {
-			this.navigationHelper = new NavigationHelper(this.driverManager);
+		if(navigationHelper==null) {
+			navigationHelper = new NavigationHelper(driverManager);
 		}
-		return this.navigationHelper;
+		return navigationHelper;
 	}
 
 }

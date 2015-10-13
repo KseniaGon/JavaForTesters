@@ -17,9 +17,9 @@ public class ContactTestsBase extends TestBase {
 		for(int i=0; i<5; i++) {
 			Contact contact = 
 				new Contact(
-					this.generateRandomString("firstName"),
-					this.generateRandomString("lastName"),
-					this.generateRandomString("address"),
+					generateRandomString("firstName"),
+					generateRandomString("lastName"),
+					generateRandomString("address"),
 					"1234567890",
 					"1234567890",
 					"tet1@test1.test",
@@ -35,8 +35,8 @@ public class ContactTestsBase extends TestBase {
 	}
 
 	protected List<Contact> getContacts() {
-		this.applicationManager.getNavigationHelper().navigateTo("home");
-		return this.applicationManager.getContactHelper().getContacts();
+		applicationManager.getNavigationHelper().navigateTo("home");
+		return applicationManager.getContactHelper().getContacts();
 	}
 
 }

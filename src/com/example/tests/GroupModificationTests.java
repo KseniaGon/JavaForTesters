@@ -12,17 +12,17 @@ public class GroupModificationTests extends GroupTestsBase {
 
 	@Test(dataProvider = "randomDataProvider")
 	public void UpdateGroup(Group group) {
-		List<Group> oldList = this.getGroups();
+		List<Group> oldList = getGroups();
 
-		int index = this.getRandomValue(oldList.size()-1);
-		this.applicationManager.getNavigationHelper().navigateTo("groups");
-		this.applicationManager.getGroupHelper().update(index, group);
+		int index = getRandomValue(oldList.size()-1);
+		applicationManager.getNavigationHelper().navigateTo("groups");
+		applicationManager.getGroupHelper().update(index, group);
 
 		oldList.remove(index);
 		oldList.add(index, group);
 		oldList.sort(null);
 
-		assertEquals(oldList, this.getGroups());
+		assertEquals(oldList, getGroups());
 
 	}
 }
