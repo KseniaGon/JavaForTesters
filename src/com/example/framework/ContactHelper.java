@@ -63,12 +63,9 @@ public class ContactHelper extends HelperBase {
 		List<WebElement> lastNames = findElementsBy(By.xpath("//table[@id='maintable']/tbody/tr/td[3]"));
 		List<Contact> contacts = new ArrayList<Contact>();
 
-		int size = lastNames.size();
-		if(size>1) {
-			size--; // "Select all" row
-		}
+		int rowCount = getCountExcludingSelectAllRow(lastNames);
 		
-		for (int i = 0; i < size; i++) {
+		for (int i = 0; i < rowCount; i++) {
 			Contact contact = new Contact();
 			contact.lastName = getText(lastNames.get(i));
 			contact.firstName = getText(firstNames.get(i));
@@ -76,6 +73,14 @@ public class ContactHelper extends HelperBase {
 			contacts.add(contact);
 		}
 		return contacts;
+	}
+
+	private int getCountExcludingSelectAllRow(List<WebElement> lastNames) {
+		int size = lastNames.size();
+		if(size>1) {
+			size--; // "Select all" row
+		}
+		return size;
 	}
 
 	private void selectContact(int index) {

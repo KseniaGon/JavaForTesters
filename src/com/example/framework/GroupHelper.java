@@ -72,7 +72,8 @@ public class GroupHelper extends HelperBase {
 		List<WebElement> elements = findElementsBy(By.xpath("//input[@name='selected[]']"));
 		List<Group> groups = new ArrayList<Group>();
 
-		for (int i = 0; i < elements.size(); i++) {
+		int rowsCount = elements.size();
+		for (int i = 0; i < rowsCount; i++) {
 			WebElement element = elements.get(i);
 
 			Group group = new Group();
