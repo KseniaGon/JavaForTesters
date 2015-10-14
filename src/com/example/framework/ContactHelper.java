@@ -1,13 +1,14 @@
 package com.example.framework;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 
+import com.example.utils.SortedListOf;
+
 public class ContactHelper extends HelperBase {
-	private static List<Contact> cache;
+	private static SortedListOf<Contact> cache;
 
 	public ContactHelper(DriverManager driverManager) {
 		super(driverManager);
@@ -47,7 +48,7 @@ public class ContactHelper extends HelperBase {
 		}
 	}
 
-	public List<Contact> getContacts() {
+	public SortedListOf<Contact> getContacts() {
 		if( cache==null ) {
 			cache = ensureContacts();
 		}
@@ -58,10 +59,10 @@ public class ContactHelper extends HelperBase {
 		cache = null;
 	}
 
-	private List<Contact> ensureContacts() {
+	private SortedListOf<Contact> ensureContacts() {
 		List<WebElement> firstNames = findElementsBy(By.xpath("//table[@id='maintable']/tbody/tr/td[2]"));
 		List<WebElement> lastNames = findElementsBy(By.xpath("//table[@id='maintable']/tbody/tr/td[3]"));
-		List<Contact> contacts = new ArrayList<Contact>();
+		SortedListOf<Contact> contacts = new SortedListOf<Contact>();
 
 		int rowCount = getCountExcludingSelectAllRow(lastNames);
 		

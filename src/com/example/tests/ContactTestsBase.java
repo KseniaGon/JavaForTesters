@@ -7,6 +7,7 @@ import java.util.List;
 import org.testng.annotations.DataProvider;
 
 import com.example.framework.Contact;
+import com.example.utils.SortedListOf;
 
 public class ContactTestsBase extends TestBase {
 	
@@ -34,8 +35,8 @@ public class ContactTestsBase extends TestBase {
 		return result.iterator();		
 	}
 
-	protected List<Contact> getContacts() {
-		applicationManager.getNavigationHelper().home();
+	protected SortedListOf<Contact> getContacts() {
+		applicationManager.navigateTo().home();
 		return applicationManager.getContactHelper().getContacts();
 	}
 

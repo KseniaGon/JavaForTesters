@@ -1,7 +1,5 @@
 package com.example.framework;
 
-import org.openqa.selenium.By;
-
 public class NavigationHelper extends HelperBase {
 	private String applicationBaseUrl;
 
@@ -31,14 +29,15 @@ public class NavigationHelper extends HelperBase {
 	}
 
 	private boolean isAtHome() {
-		return getCurrentUri().startsWith(applicationBaseUrl);
+		//Query string support?
+		return getCurrentUri().equals(applicationBaseUrl);
 	}
 
 	private boolean isAtGroups() {
 		//???? Looks like absence of element is subject of timeout and there is no optimization with such check  
-		if( getCurrentUri().startsWith(applicationBaseUrl + "group.php") ) {
-			return findElementsBy(By.name("new")).size()>0;
-		}
+		//if( getCurrentUri().startsWith(applicationBaseUrl + "group.php") ) {
+		//	return findElementsBy(By.name("new")).size()>0;
+		//}
 		return false;
 	}
 }

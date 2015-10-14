@@ -48,4 +48,10 @@ public class Group implements Comparable<Group> {
 	public int compareTo(Group other) {
 		return name.compareToIgnoreCase(other.name);
 	}
+
+	public Group withFooter(String footer) {
+		this.footer = footer;
+		return this;
+	}
+
 }

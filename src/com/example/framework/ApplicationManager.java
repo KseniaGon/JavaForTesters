@@ -34,7 +34,7 @@ public class ApplicationManager {
 		return contactHelper;
 	}
 
-	public NavigationHelper getNavigationHelper() {
+	public NavigationHelper navigateTo() {
 		if(navigationHelper==null) {
 			navigationHelper = new NavigationHelper(driverManager, applicationBaseUrl);
 		}

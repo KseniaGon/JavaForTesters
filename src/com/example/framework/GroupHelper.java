@@ -1,13 +1,14 @@
 package com.example.framework;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 
+import com.example.utils.SortedListOf;
+
 public class GroupHelper extends HelperBase {
-	private static List<Group> cache;
+	private static SortedListOf<Group> cache;
 	
 	public GroupHelper(DriverManager driverManager) {
 		super(driverManager);
@@ -51,7 +52,7 @@ public class GroupHelper extends HelperBase {
 		}
 	}
 
-	public List<Group> getGroups() {
+	public SortedListOf<Group> getGroups() {
 		if( cache==null ) {
 			cache = ensureGroups();
 		}
@@ -68,9 +69,9 @@ public class GroupHelper extends HelperBase {
 		fillInput("group_footer", group.footer);
 	}
 
-	protected List<Group> ensureGroups() {
+	protected SortedListOf<Group> ensureGroups() {
 		List<WebElement> elements = findElementsBy(By.xpath("//input[@name='selected[]']"));
-		List<Group> groups = new ArrayList<Group>();
+		SortedListOf<Group> groups = new SortedListOf<Group>();
 
 		int rowsCount = elements.size();
 		for (int i = 0; i < rowsCount; i++) {

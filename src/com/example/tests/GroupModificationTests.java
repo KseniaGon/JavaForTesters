@@ -1,28 +1,27 @@
 package com.example.tests;
 
-import static org.testng.Assert.assertEquals;
-
-import java.util.List;
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.CoreMatchers.equalTo; 
 
 import org.testng.annotations.Test;
 
 import com.example.framework.Group;
+import com.example.utils.SortedListOf;
 
 public class GroupModificationTests extends GroupTestsBase {
 
 	@Test(dataProvider = "randomDataProvider")
 	public void UpdateGroup(Group group) {
-		List<Group> oldList = getGroups();
+		SortedListOf<Group> oldList = getGroups();
 
 		int index = getRandomValue(oldList.size()-1);
-		applicationManager.getNavigationHelper().groups();
 		applicationManager.getGroupHelper().update(index, group);
 
-		oldList.remove(index);
-		oldList.add(index, group);
-		oldList.sort(null);
-
-		assertEquals(oldList, getGroups());
-
+		assertThat(
+			getGroups(), 
+			equalTo(
+				oldList
+					.withDeleted(index)
+					.withAdded(group)));
 	}
 }

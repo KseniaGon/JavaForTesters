@@ -7,11 +7,12 @@ import java.util.List;
 import org.testng.annotations.DataProvider;
 
 import com.example.framework.Group;
+import com.example.utils.SortedListOf;
 
 public class GroupTestsBase extends TestBase {
 
-	protected List<Group> getGroups() {
-		applicationManager.getNavigationHelper().groups();
+	protected SortedListOf<Group> getGroups() {
+		applicationManager.navigateTo().groups();
 		return applicationManager.getGroupHelper().getGroups();
 	}
 
