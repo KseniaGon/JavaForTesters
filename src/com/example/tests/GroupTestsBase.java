@@ -21,12 +21,12 @@ public class GroupTestsBase extends TestBase {
 		List<Object[]> result = new ArrayList<Object[]>();
 
 		for(int i=0; i<5; i++) {
-			Group group = new Group();
-			group.name = generateRandomString("name");
-			group.header = generateRandomString("header");
-			group.header = generateRandomString("footer");
-
-			result.add(new Object[] { group  });
+			result.add(
+				new Object[] { 
+					new Group()
+						.withName(generateRandomString("name"))
+						.withHeader(generateRandomString("header"))
+						.withHeader(generateRandomString("footer"))  });
 		}
 
 		return result.iterator();

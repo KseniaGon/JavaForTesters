@@ -13,7 +13,7 @@ public class ContactCreateTest extends ContactTestsBase {
 	public void createContact(Contact contact) throws Exception {
 		SortedListOf<Contact> oldList = getContacts();
 		
-		contact.groupName = getWellKnownGroupName();
+		contact = contact.withGroupName(getWellKnownGroupName());
 		applicationManager.getContactHelper().create(contact);
 		
 		assertThat(getContacts(), equalTo(oldList.withAdded(contact)));

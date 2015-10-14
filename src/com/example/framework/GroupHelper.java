@@ -15,8 +15,8 @@ public class GroupHelper extends HelperBase {
 	}
 
 	public void create(Group group) {
-		clickByName("new");
-		fillForm(group);
+		selectNew()
+			.fillForm(group);
 
 		try {
 			clickByName("submit");
@@ -40,9 +40,9 @@ public class GroupHelper extends HelperBase {
 
 
 	public void update(int index, Group group) {
-		selectGroup(index);
-		clickByName("edit");
-		fillForm(group);
+		selectGroup(index)
+			.selectEdit()
+			.fillForm(group);
 		
 		try {
 			clickByName("update");
@@ -64,9 +64,9 @@ public class GroupHelper extends HelperBase {
 	}
 
 	protected void fillForm(Group group) {
-		fillInput("group_name", group.name);
-		fillInput("group_header", group.header);
-		fillInput("group_footer", group.footer);
+		fillInput("group_name", group.getName())
+			.fillInput("group_header", group.getHeader())
+			.fillInput("group_footer", group.getFooter());
 	}
 
 	protected SortedListOf<Group> ensureGroups() {
@@ -77,17 +77,26 @@ public class GroupHelper extends HelperBase {
 		for (int i = 0; i < rowsCount; i++) {
 			WebElement element = elements.get(i);
 
-			Group group = new Group();
 			//<input name="selected[]" value="3" title="Select (test 1)" type="checkbox">test 1<br>
-			group.name = element.getAttribute("title").replaceAll("Select \\((.*)\\)", "$1");
+			Group group = new Group()
+					.withName(element.getAttribute("title").replaceAll("Select \\((.*)\\)", "$1"));
 
 			groups.add(group);		}
 		return groups;
 	}
 
-	protected void selectGroup(int index) {
+	protected GroupHelper selectGroup(int index) {
 		findElementBy(By.xpath(String.format("//input[@name='selected[]'][%d]", index+1))).click();
+		return this;
+	}
+	
+	private GroupHelper selectEdit() {
+		clickByName("edit");
+		return this;
 	}
 
-	
+	private GroupHelper selectNew() {
+		clickByName("new");
+		return this;
+	}
 }

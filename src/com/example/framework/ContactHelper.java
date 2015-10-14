@@ -15,8 +15,8 @@ public class ContactHelper extends HelperBase {
 	}
 
 	public void create(Contact contact) {
-		findElementByLinkText("add new").click();
-		fillForm(contact);
+		selectNew()
+			.fillForm(contact);
 
 		try {
 			clickByName("submit");
@@ -27,11 +27,11 @@ public class ContactHelper extends HelperBase {
 	}
 
 	public void update(int index, Contact contact) {
-		selectContact(index);
-		fillForm(contact);
+		selectContact(index)
+			.fillForm(contact);
 
 		try {
-			clickByXPath("//input[@value='Update'][@name='update']");
+			clickOnUpdate();
 		}
 		finally {
 			invalidateCache();
@@ -40,8 +40,9 @@ public class ContactHelper extends HelperBase {
 
 	public void delete(int index) {
 		selectContact(index);
+		
 		try{
-			clickByXPath("//input[@value='Delete'][@name='update']");
+			clickOnDelete();
 		}
 		finally {
 			invalidateCache();
@@ -67,11 +68,10 @@ public class ContactHelper extends HelperBase {
 		int rowCount = getCountExcludingSelectAllRow(lastNames);
 		
 		for (int i = 0; i < rowCount; i++) {
-			Contact contact = new Contact();
-			contact.lastName = getText(lastNames.get(i));
-			contact.firstName = getText(firstNames.get(i));
-
-			contacts.add(contact);
+			contacts.add(
+				new Contact()
+					 .withLastName(getText(lastNames.get(i)))
+					 .withfirstName(getText(firstNames.get(i))));
 		}
 		return contacts;
 	}
@@ -84,27 +84,40 @@ public class ContactHelper extends HelperBase {
 		return size;
 	}
 
-	private void selectContact(int index) {
+	private ContactHelper selectContact(int index) {
 		findElementBy(By.xpath(getCellXPath(index, 7) + "/a")).click();
+		return this;
 	}
 
 	private void fillForm(Contact contact) {
 		// First Name and Last Name are swapped in Contact table (Home page)
 		// If you rely on checkbox ID -- it is fine, if you relay on values in table, you should swap these values
-		fillInput("firstname", contact.lastName);
-		fillInput("lastname", contact.firstName);
-		
-		fillInput("address", contact.address);
-		fillInput("home", contact.homePhone);
-		fillInput("mobile", contact.mobilePhone);
-		fillInput("email", contact.email);
-		selectByVisibleText("bday", contact.birthDay);
-		selectByVisibleText("bmonth", contact.birthMonth);
-		fillInput("byear", contact.birthYear);
-		selectByVisibleText("new_group", contact.groupName);
+		fillInput("firstname", contact.getLastName())
+			.fillInput("lastname", contact.getFirstName())
+			.fillInput("address", contact.getAddress())
+			.fillInput("home", contact.getHomePhone())
+			.fillInput("mobile", contact.getMobilePhone())
+			.fillInput("email", contact.getEmail())
+			.selectByVisibleText("bday", contact.getBirthDay())
+			.selectByVisibleText("bmonth", contact.getBirthMonth())
+			.fillInput("byear", contact.getBirthYear())
+			.selectByVisibleText("new_group", contact.getGroupName());
 	}
 
 	private String getCellXPath(int row, int position) {
 		return String.format("//table[@id='maintable']/tbody/tr[%d]/td[%d]", row+2, position);
+	}
+
+	private ContactHelper selectNew() {
+		findElementByLinkText("add new").click();
+		return this;
+	}
+
+	private void clickOnUpdate() {
+		clickByXPath("//input[@value='Update'][@name='update']");
+	}
+
+	private void clickOnDelete() {
+		clickByXPath("//input[@value='Delete'][@name='update']");
 	}
 }

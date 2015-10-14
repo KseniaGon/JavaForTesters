@@ -1,6 +1,18 @@
 package com.example.framework;
 
 public class Group implements Comparable<Group> {
+	public String getName() {
+		return name;
+	}
+
+	public String getHeader() {
+		return header;
+	}
+
+	public String getFooter() {
+		return footer;
+	}
+
 	@Override
 	public String toString() {
 		return "Group [name=" + name + "]";
@@ -31,9 +43,9 @@ public class Group implements Comparable<Group> {
 		return true;
 	}
 
-	public String name;
-	public String header;
-	public String footer;
+	private String name;
+	private String header;
+	private String footer;
 
 	public Group(String name, String header, String footer) {
 		this.name = name;
@@ -53,5 +65,14 @@ public class Group implements Comparable<Group> {
 		this.footer = footer;
 		return this;
 	}
-
+	
+	public Group withHeader(String header) {
+		this.header = header;
+		return this;
+	}
+	
+	public Group withName(String name) {
+		this.name = name;
+		return this;
+	}
 }

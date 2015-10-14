@@ -1,6 +1,46 @@
 package com.example.framework;
 
 public class Contact implements Comparable<Contact> {
+	public String getFirstName() {
+		return firstName;
+	}
+
+	public String getLastName() {
+		return lastName;
+	}
+
+	public String getAddress() {
+		return address;
+	}
+
+	public String getHomePhone() {
+		return homePhone;
+	}
+
+	public String getMobilePhone() {
+		return mobilePhone;
+	}
+
+	public String getEmail() {
+		return email;
+	}
+
+	public String getBirthDay() {
+		return birthDay;
+	}
+
+	public String getBirthMonth() {
+		return birthMonth;
+	}
+
+	public String getBirthYear() {
+		return birthYear;
+	}
+
+	public String getGroupName() {
+		return groupName;
+	}
+
 	@Override
 	public String toString() {
 		return "Contact [firstName=" + firstName + ", lastName=" + lastName + "]";
@@ -37,16 +77,16 @@ public class Contact implements Comparable<Contact> {
 		return true;
 	}
 
-	public String firstName;
-	public String lastName;
-	public String address;
-	public String homePhone;
-	public String mobilePhone;
-	public String email;
-	public String birthDay;
-	public String birthMonth;
-	public String birthYear;
-	public String groupName;
+	private String firstName;
+	private String lastName;
+	private String address;
+	private String homePhone;
+	private String mobilePhone;
+	private String email;
+	private String birthDay;
+	private String birthMonth;
+	private String birthYear;
+	private String groupName;
 
 	public Contact(String firstName, String lastName, String address, String homePhone, String mobilePhone,
 			String email, String birthDay, String birthMonth, String birthYear, String groupName) {
@@ -75,4 +115,20 @@ public class Contact implements Comparable<Contact> {
 
 		return result;
 	}
+	
+	public Contact withGroupName(String groupName) {
+		this.groupName = groupName;
+		return this;
+	}
+
+	public Contact withfirstName(String firstName) {
+		this.firstName = firstName;
+		return this;
+	}
+
+	public Contact withLastName(String lastName) {
+		this.lastName = lastName;
+		return this;
+	}
+
 }

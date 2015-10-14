@@ -34,17 +34,19 @@ public class HelperBase {
 		return driverManager.getWebDriver().findElements(locator);
 	}
 
-	protected void fillInput(String elementName, String value) {
+	protected HelperBase fillInput(String elementName, String value) {
 		if (value != null) {
 			findElementByName(elementName).clear();
 			findElementByName(elementName).sendKeys(value);
 		}
+		return this;
 	}
 
-	protected void selectByVisibleText(String elementName, String text) {
+	protected HelperBase selectByVisibleText(String elementName, String text) {
 		if (text != null) {
 			new Select(driverManager.getWebDriver().findElement(By.name(elementName))).selectByVisibleText(text);
 		}
+		return this;
 	}
 
 	protected void clickByName(String name) {
