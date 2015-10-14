@@ -3,14 +3,12 @@ package com.example.framework;
 import java.util.List;
 
 import org.openqa.selenium.By;
-import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.Select;
 
 public class HelperBase {
 
-	protected WebDriver driver;
-	protected DriverManager driverManager;
+	private DriverManager driverManager;
 
 	public HelperBase() {
 		super();
@@ -64,5 +62,10 @@ public class HelperBase {
 		// (String)((JavascriptExecutor)driverManager.getWebDriver())
 		// .executeScript("return arguments[0].innerText ||
 		// arguments[0].textContent;", element);
+	}
+	
+	protected String getCurrentUri() {
+		//TODO: return URI
+		return this.driverManager.getWebDriver().getCurrentUrl();
 	}
 }

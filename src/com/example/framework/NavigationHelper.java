@@ -1,11 +1,43 @@
 package com.example.framework;
 
+import org.openqa.selenium.By;
+
 public class NavigationHelper extends HelperBase {
-	public NavigationHelper(DriverManager driverManager) {
+	private String applicationBaseUrl;
+
+	public NavigationHelper(DriverManager driverManager, String applicationBaseUrl) {
 		super(driverManager);
+		this.applicationBaseUrl = applicationBaseUrl;
 	}
 	
-	public void navigateTo(String name) {
+	public void home() {
+		if( !isAtHome()) {
+			navigateTo("home");
+		}
+	}
+	
+	public void groups() {
+		if( !isAtGroups() ) {
+			navigateTo("groups");
+		}
+	}
+	
+	public void addNewContact() {
+		navigateTo("add new");
+	}
+	
+	private void navigateTo(String name) {
 		findElementByLinkText(name).click();
+	}
+
+	private boolean isAtHome() {
+		return getCurrentUri().equalsIgnoreCase(applicationBaseUrl);
+	}
+
+	private boolean isAtGroups() {
+		//if( getCurrentUri().equalsIgnoreCase(applicationBaseUrl + "group.php") ) {
+		//	return findElementsBy(By.name("new")).size()>0;
+		//}
+		return false;
 	}
 }

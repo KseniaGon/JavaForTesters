@@ -15,7 +15,7 @@ public class GroupModificationTests extends GroupTestsBase {
 		List<Group> oldList = getGroups();
 
 		int index = getRandomValue(oldList.size()-1);
-		applicationManager.getNavigationHelper().navigateTo("groups");
+		applicationManager.getNavigationHelper().groups();
 		applicationManager.getGroupHelper().update(index, group);
 
 		oldList.remove(index);

@@ -11,7 +11,7 @@ import com.example.framework.Group;
 public class GroupTestsBase extends TestBase {
 
 	protected List<Group> getGroups() {
-		applicationManager.getNavigationHelper().navigateTo("groups");
+		applicationManager.getNavigationHelper().groups();
 		return applicationManager.getGroupHelper().getGroups();
 	}
 

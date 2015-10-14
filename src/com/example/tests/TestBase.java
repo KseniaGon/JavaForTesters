@@ -13,7 +13,7 @@ public class TestBase {
 			
 
 	public TestBase() {
-		applicationManager = new ApplicationManager("http://localhost");
+		applicationManager = new ApplicationManager("http://localhost/addressbookv4.1.4/");
 	}
 	
 	@BeforeMethod

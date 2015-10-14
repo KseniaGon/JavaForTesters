@@ -15,7 +15,7 @@ public class ContactCreateTest extends ContactTestsBase {
 		
 		contact.groupName = getWellKnownGroupName();
 
-		applicationManager.getNavigationHelper().navigateTo("add new");
+		applicationManager.getNavigationHelper().addNewContact();
 		applicationManager.getContactHelper().create(contact);
 		
 		oldList.add(contact);

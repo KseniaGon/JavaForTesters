@@ -15,7 +15,7 @@ public class ContactModificationTests extends ContactTestsBase {
 		List<Contact> oldList = getContacts();
 		
 		int index = getRandomValue(oldList.size()-1);
-		applicationManager.getNavigationHelper().navigateTo("home");
+		applicationManager.getNavigationHelper().home();
 		applicationManager.getContactHelper().update(index, contact);
 		
 		oldList.remove(index);

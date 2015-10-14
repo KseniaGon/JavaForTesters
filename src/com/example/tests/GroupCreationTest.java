@@ -14,7 +14,7 @@ public class GroupCreationTest extends GroupTestsBase {
 	public void createGroup(Group group) throws Exception {
 		List<Group> oldList = getGroups();
 
-		applicationManager.getNavigationHelper().navigateTo("groups");
+		applicationManager.getNavigationHelper().groups();
 		applicationManager.getGroupHelper().create(group);
 
 		oldList.add(group);
@@ -30,7 +30,7 @@ public class GroupCreationTest extends GroupTestsBase {
 		Group group = getGroupTestData();
 		group.footer = "Test \n\r Footer";
 		ApplicationManager r = applicationManager;
-		r.getNavigationHelper().navigateTo("groups");
+		r.getNavigationHelper().groups();
 		r.getGroupHelper().create(group);
 
 		oldList.add(group);

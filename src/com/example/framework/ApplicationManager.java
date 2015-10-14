@@ -5,13 +5,15 @@ public class ApplicationManager {
 	private ContactHelper contactHelper;
 	private GroupHelper groupHelper;
 	private NavigationHelper navigationHelper;
+	private String applicationBaseUrl;
 
-	public ApplicationManager(String baseUrl) {
-		driverManager = new DriverManager(baseUrl);
+	public ApplicationManager(String applicationBaseUrl) {
+		driverManager = new DriverManager();
+		this.applicationBaseUrl = applicationBaseUrl;
 	}
 
 	public void setUp() throws Exception {
-		driverManager.setUp();
+		driverManager.initialize(applicationBaseUrl);
 	}
 
 	public void suiteTearDown() throws Exception {
@@ -34,7 +36,7 @@ public class ApplicationManager {
 
 	public NavigationHelper getNavigationHelper() {
 		if(navigationHelper==null) {
-			navigationHelper = new NavigationHelper(driverManager);
+			navigationHelper = new NavigationHelper(driverManager, applicationBaseUrl);
 		}
 		return navigationHelper;
 	}

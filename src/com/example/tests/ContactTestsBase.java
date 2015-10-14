@@ -35,7 +35,7 @@ public class ContactTestsBase extends TestBase {
 	}
 
 	protected List<Contact> getContacts() {
-		applicationManager.getNavigationHelper().navigateTo("home");
+		applicationManager.getNavigationHelper().home();
 		return applicationManager.getContactHelper().getContacts();
 	}
 

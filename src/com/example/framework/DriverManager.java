@@ -7,11 +7,6 @@ import org.openqa.selenium.firefox.FirefoxDriver;
 
 public class DriverManager {
 	private static WebDriver driver;
-	private static String baseUrl;
-
-	public DriverManager(String baseUrl) {
-		DriverManager.baseUrl = baseUrl;
-	}
 
 	public WebDriver getWebDriver() {
 	    if( driver==null ) {
@@ -25,8 +20,8 @@ public class DriverManager {
 	    driver.quit();
 	}
 
-	public void setUp() {
-	    getWebDriver().get(baseUrl + "/addressbookv4.1.4/");
+	public void initialize(String baseUrl) {
+	    getWebDriver().get(baseUrl);
 	}
-
+	
 }
