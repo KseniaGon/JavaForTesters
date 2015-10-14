@@ -31,13 +31,14 @@ public class NavigationHelper extends HelperBase {
 	}
 
 	private boolean isAtHome() {
-		return getCurrentUri().equalsIgnoreCase(applicationBaseUrl);
+		return getCurrentUri().startsWith(applicationBaseUrl);
 	}
 
 	private boolean isAtGroups() {
-		//if( getCurrentUri().equalsIgnoreCase(applicationBaseUrl + "group.php") ) {
-		//	return findElementsBy(By.name("new")).size()>0;
-		//}
+		//???? Looks like absence of element is subject of timeout and there is no optimization with such check  
+		if( getCurrentUri().startsWith(applicationBaseUrl + "group.php") ) {
+			return findElementsBy(By.name("new")).size()>0;
+		}
 		return false;
 	}
 }
