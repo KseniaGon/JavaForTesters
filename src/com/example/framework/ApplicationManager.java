@@ -4,7 +4,6 @@ public class ApplicationManager {
 	private DriverManager driverManager;
 	private ContactHelper contactHelper;
 	private GroupHelper groupHelper;
-	private NavigationHelper navigationHelper;
 	private String applicationBaseUrl;
 
 	public ApplicationManager(String applicationBaseUrl) {
@@ -22,23 +21,20 @@ public class ApplicationManager {
 
 	public GroupHelper getGroupHelper() {
 		if(groupHelper==null) {
-			groupHelper = new GroupHelper(driverManager);
+			groupHelper = new GroupHelper(driverManager, getNavigationHelper(applicationBaseUrl));
 		}
 		return groupHelper;
 	}
 
 	public ContactHelper getContactHelper() {
 		if(contactHelper==null) {
-			contactHelper = new ContactHelper(driverManager);
+			contactHelper = new ContactHelper(driverManager, getNavigationHelper( applicationBaseUrl));
 		}
 		return contactHelper;
 	}
 
-	public NavigationHelper navigateTo() {
-		if(navigationHelper==null) {
-			navigationHelper = new NavigationHelper(driverManager, applicationBaseUrl);
-		}
-		return navigationHelper;
+	private NavigationHelper getNavigationHelper(String  applicationBaseUrl) {
+		return new NavigationHelper(driverManager, applicationBaseUrl);
 	}
 
 }

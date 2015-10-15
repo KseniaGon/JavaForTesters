@@ -4,7 +4,7 @@ public class NavigationHelper extends HelperBase {
 	private String applicationBaseUrl;
 
 	public NavigationHelper(DriverManager driverManager, String applicationBaseUrl) {
-		super(driverManager);
+		super(driverManager, null);
 		this.applicationBaseUrl = applicationBaseUrl;
 	}
 	

@@ -36,7 +36,6 @@ public class ContactTestsBase extends TestBase {
 	}
 
 	protected SortedListOf<Contact> getContacts() {
-		applicationManager.navigateTo().home();
 		return applicationManager.getContactHelper().getContacts();
 	}
 

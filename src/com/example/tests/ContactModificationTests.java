@@ -15,7 +15,6 @@ public class ContactModificationTests extends ContactTestsBase {
 		SortedListOf<Contact> oldList = getContacts();
 		
 		int index = getRandomValue(oldList.size()-1);
-		applicationManager.navigateTo().home();
 		applicationManager.getContactHelper().update(index, contact);
 		
 		assertThat(

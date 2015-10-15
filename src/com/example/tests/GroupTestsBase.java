@@ -12,7 +12,6 @@ import com.example.utils.SortedListOf;
 public class GroupTestsBase extends TestBase {
 
 	protected SortedListOf<Group> getGroups() {
-		applicationManager.navigateTo().groups();
 		return applicationManager.getGroupHelper().getGroups();
 	}
 

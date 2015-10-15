@@ -10,8 +10,8 @@ import com.example.utils.SortedListOf;
 public class GroupHelper extends HelperBase {
 	private static SortedListOf<Group> cache;
 	
-	public GroupHelper(DriverManager driverManager) {
-		super(driverManager);
+	public GroupHelper(DriverManager driverManager, NavigationHelper navigationHelper) {
+		super(driverManager, navigationHelper);
 	}
 
 	public void create(Group group) {
@@ -53,6 +53,8 @@ public class GroupHelper extends HelperBase {
 	}
 
 	public SortedListOf<Group> getGroups() {
+		navigateTo().groups();
+		
 		if( cache==null ) {
 			cache = ensureGroups();
 		}

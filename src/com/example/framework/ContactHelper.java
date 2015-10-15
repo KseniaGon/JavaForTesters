@@ -10,8 +10,8 @@ import com.example.utils.SortedListOf;
 public class ContactHelper extends HelperBase {
 	private static SortedListOf<Contact> cache;
 
-	public ContactHelper(DriverManager driverManager) {
-		super(driverManager);
+	public ContactHelper(DriverManager driverManager, NavigationHelper navigationHelper) {
+		super(driverManager, navigationHelper);
 	}
 
 	public void create(Contact contact) {
@@ -27,6 +27,8 @@ public class ContactHelper extends HelperBase {
 	}
 
 	public void update(int index, Contact contact) {
+		navigateTo().home();
+
 		selectContact(index)
 			.fillForm(contact);
 
@@ -39,6 +41,8 @@ public class ContactHelper extends HelperBase {
 	}
 
 	public void delete(int index) {
+		navigateTo().home();
+
 		selectContact(index);
 		
 		try{
@@ -50,6 +54,8 @@ public class ContactHelper extends HelperBase {
 	}
 
 	public SortedListOf<Contact> getContacts() {
+		navigateTo().home();
+		
 		if( cache==null ) {
 			cache = ensureContacts();
 		}

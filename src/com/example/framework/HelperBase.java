@@ -9,14 +9,21 @@ import org.openqa.selenium.support.ui.Select;
 public class HelperBase {
 
 	private DriverManager driverManager;
+	private NavigationHelper navigationHelper;
 
 	public HelperBase() {
 		super();
 	}
 
-	public HelperBase(DriverManager driverManager) {
+	public HelperBase(DriverManager driverManager, NavigationHelper navigationHelper) {
 		this.driverManager = driverManager;
+		this.navigationHelper = navigationHelper;
 	}
+	
+	protected NavigationHelper navigateTo() {
+		return navigationHelper;
+	}
+
 
 	protected WebElement findElementByLinkText(String linkText) {
 		return findElementBy(By.linkText(linkText));

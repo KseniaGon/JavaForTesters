@@ -15,7 +15,6 @@ public class ContactDeletionTests extends ContactTestsBase {
 		SortedListOf<Contact> oldList = getContacts();
 		
 		int index = getRandomValue(oldList.size()-1);
-		applicationManager.navigateTo().home();
 		applicationManager.getContactHelper().delete(index);
 
 		assertThat(getContacts(), equalTo(oldList.withDeleted(index)));		
