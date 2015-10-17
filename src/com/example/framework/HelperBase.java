@@ -11,10 +11,6 @@ public class HelperBase {
 	private DriverManager driverManager;
 	private NavigationHelper navigationHelper;
 
-	public HelperBase() {
-		super();
-	}
-
 	public HelperBase(DriverManager driverManager, NavigationHelper navigationHelper) {
 		this.driverManager = driverManager;
 		this.navigationHelper = navigationHelper;

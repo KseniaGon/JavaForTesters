@@ -23,6 +23,10 @@ public class NavigationHelper extends HelperBase {
 	public void addNewContact() {
 		navigateTo("add new");
 	}
+
+	public void printPhonesPage() {
+		navigateTo("print phones");
+	}
 	
 	private void navigateTo(String name) {
 		findElementByLinkText(name).click();
@@ -40,4 +44,5 @@ public class NavigationHelper extends HelperBase {
 		//}
 		return false;
 	}
+
 }

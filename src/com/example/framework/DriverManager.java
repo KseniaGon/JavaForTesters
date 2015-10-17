@@ -21,7 +21,10 @@ public class DriverManager {
 	}
 
 	public void initialize(String baseUrl) {
-	    getWebDriver().get(baseUrl);
+	    WebDriver webDriver = getWebDriver();
+	    if( !webDriver.getCurrentUrl().equals(baseUrl) ) {
+			webDriver.get(baseUrl);
+	    }
 	}
 	
 }

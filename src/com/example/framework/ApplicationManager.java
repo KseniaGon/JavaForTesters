@@ -4,6 +4,8 @@ public class ApplicationManager {
 	private DriverManager driverManager;
 	private ContactHelper contactHelper;
 	private GroupHelper groupHelper;
+	private CardsHelper cardsHelper;
+	
 	private String applicationBaseUrl;
 
 	public ApplicationManager(String applicationBaseUrl) {
@@ -36,5 +38,11 @@ public class ApplicationManager {
 	private NavigationHelper getNavigationHelper(String  applicationBaseUrl) {
 		return new NavigationHelper(driverManager, applicationBaseUrl);
 	}
-
+	
+	public CardsHelper getCardsHelper() {
+		if(cardsHelper==null) {
+			cardsHelper = new CardsHelper(driverManager, getNavigationHelper(applicationBaseUrl));
+		}
+		return cardsHelper;
+	}	
 }

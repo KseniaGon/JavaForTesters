@@ -131,4 +131,9 @@ public class Contact implements Comparable<Contact> {
 		return this;
 	}
 
+	public Contact withPhone(String phone) {
+		this.homePhone = phone;
+		return this;
+	}
+
 }

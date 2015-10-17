@@ -62,6 +62,18 @@ public class ContactHelper extends HelperBase {
 		return cache;
 	}
 
+	public SortedListOf<Card> convertToCards(SortedListOf<Contact> contacts) {
+		SortedListOf<Card> result = new SortedListOf<Card>();
+		
+		for(Contact contact: contacts) {
+			result.add(
+				new Card()
+					.withFirstAndLastName(getFirstAndLastName(contact))
+					.withPhone(contact.getHomePhone()));
+		}
+		return result;
+	}
+
 	private void invalidateCache() {
 		cache = null;
 	}
@@ -69,6 +81,7 @@ public class ContactHelper extends HelperBase {
 	private SortedListOf<Contact> ensureContacts() {
 		List<WebElement> firstNames = findElementsBy(By.xpath("//table[@id='maintable']/tbody/tr/td[2]"));
 		List<WebElement> lastNames = findElementsBy(By.xpath("//table[@id='maintable']/tbody/tr/td[3]"));
+		List<WebElement> phones = findElementsBy(By.xpath("//table[@id='maintable']/tbody/tr/td[5]"));
 		SortedListOf<Contact> contacts = new SortedListOf<Contact>();
 
 		int rowCount = getCountExcludingSelectAllRow(lastNames);
@@ -77,7 +90,8 @@ public class ContactHelper extends HelperBase {
 			contacts.add(
 				new Contact()
 					 .withLastName(getText(lastNames.get(i)))
-					 .withfirstName(getText(firstNames.get(i))));
+					 .withfirstName(getText(firstNames.get(i)))
+					 .withPhone(getText(phones.get(i))));
 		}
 		return contacts;
 	}
@@ -125,5 +139,20 @@ public class ContactHelper extends HelperBase {
 
 	private void clickOnDelete() {
 		clickByXPath("//input[@value='Delete'][@name='update']");
+	}
+
+	private String getFirstAndLastName(Contact contact) {
+		String firstName = contact.getFirstName();
+		String lastName = contact.getLastName();
+		
+		if( firstName==null || firstName.isEmpty() ) {
+			return lastName;
+		}
+		else if( lastName==null ||  lastName.isEmpty() ) {
+			return firstName;
+		}
+		else {
+			return String.format("%s %s", lastName, firstName);
+		}
 	}
 }
