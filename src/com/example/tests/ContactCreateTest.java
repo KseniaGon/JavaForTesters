@@ -10,7 +10,16 @@ import com.example.utils.SortedListOf;
 public class ContactCreateTest extends ContactTestsBase {
 	
 	@Test(dataProvider = "randomDataProvider")
+	public void createRandomContact(Contact contact) throws Exception {
+		createContactInternal(contact);
+	}
+
+	@Test(dataProvider = "fileDataProvider")
 	public void createContact(Contact contact) throws Exception {
+		createContactInternal(contact);
+	}
+
+	private void createContactInternal(Contact contact) {
 		SortedListOf<Contact> oldList = getContacts();
 		
 		contact = contact.withGroupName(getWellKnownGroupName());

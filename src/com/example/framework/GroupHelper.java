@@ -36,6 +36,7 @@ public class GroupHelper extends HelperBase {
 		finally {
 			invaldateCache();
 		}
+		navigateTo().groups();
 	}
 
 

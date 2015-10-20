@@ -10,12 +10,13 @@ import com.example.utils.SortedListOf;
 public class GroupCreationTest extends GroupTestsBase {
 
 	@Test(dataProvider = "randomDataProvider")
+	public void createRandomGroup(Group group) throws Exception {
+		createGroupInternal(group); 
+	}
+
+	@Test(dataProvider = "fileDataProvider")
 	public void createGroup(Group group) throws Exception {
-		SortedListOf<Group> oldList = getGroups();
-
-		applicationManager.getGroupHelper().create(group);
-
-		assertThat(getGroups(), equalTo(oldList.withAdded(group))); 
+		createGroupInternal(group); 
 	}
 
 	@Test
@@ -33,4 +34,13 @@ public class GroupCreationTest extends GroupTestsBase {
 	private Group getGroupTestData() {
 		return new Group(getWellKnownGroupName(), "test header", "test footer");
 	}
+	
+	protected void createGroupInternal(Group group) {
+		SortedListOf<Group> oldList = getGroups();
+
+		applicationManager.getGroupHelper().create(group);
+
+		assertThat(getGroups(), equalTo(oldList.withAdded(group)));
+	}
+	
 }

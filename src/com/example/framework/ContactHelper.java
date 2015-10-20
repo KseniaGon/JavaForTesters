@@ -97,11 +97,7 @@ public class ContactHelper extends HelperBase {
 	}
 
 	private int getCountExcludingSelectAllRow(List<WebElement> lastNames) {
-		int size = lastNames.size();
-		if(size>1) {
-			size--; // "Select all" row
-		}
-		return size;
+		return lastNames.size() - 1; // "Select all" row
 	}
 
 	private ContactHelper selectContact(int index) {
