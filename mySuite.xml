@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<suite name="Default suite">
+  <test verbose="2" name="Default test">
+    <classes>
+      <class name="com.example.tests.GroupTestsBase"/>
+      <class name="com.example.tests.CardsTests"/>
+      <class name="com.example.tests.GroupModificationTests"/>
+      <class name="com.example.tests.GroupCreationTest"/>
+      <class name="com.example.tests.ContactCreateTest"/>
+      <class name="com.example.tests.TestBase"/>
+      <class name="com.example.tests.ContactTestsBase"/>
+      <class name="com.example.tests.GroupDeletionTests"/>
+      <class name="com.example.tests.ContactDeletionTests"/>
+      <class name="com.example.tests.ContactModificationTests"/>
+    </classes>
+  </test> <!-- Default test -->
+</suite> <!-- Default suite -->

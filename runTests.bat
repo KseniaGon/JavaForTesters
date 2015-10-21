@@ -1,0 +1,1 @@
+java -cp bin;C:\Work\hamcrest-junit-2.0.0.0.jar;C:\Work\java-hamcrest-2.0.0.0.jar;C:\Work\selenium-server-standalone-2.47.1.jar;C:\Work\xstream-1.4.8\lib\xstream-1.4.8.jar;C:\Work\xstream-1.4.8\lib\xstream\xmlpull-1.1.3.1.jar;C:\Work\xstream-1.4.8\lib\xstream\xpp3_min-1.1.4c.jar org.testng.TestNG mySuite.xml   
