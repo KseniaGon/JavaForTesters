@@ -1,9 +1,18 @@
 package com.example.framework;
 
+import java.io.FileReader;
+import java.io.Reader;
+import java.util.Properties;
+
 public class Cleaner {
 	
 	public static void main(String[] args) throws Exception {
-		ApplicationManager applicationManager =  new ApplicationManager("http://localhost/addressbookv4.1.4/");
+		Properties properties = new Properties();
+		Reader reader = new FileReader("firefox.properties");
+		properties.load(reader);
+		reader.close();
+		
+		ApplicationManager applicationManager =  new ApplicationManager(properties);
 		applicationManager.setUp();
 		
 		int contactsCount = applicationManager.getContactHelper().getContacts().size();

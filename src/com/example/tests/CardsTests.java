@@ -12,6 +12,10 @@ import com.example.framework.Contact;
 import com.example.utils.SortedListOf;
 
 public class CardsTests extends TestBase {
+	public CardsTests() throws IOException {
+		super();
+	}
+
 	@Test
 	public void verifyCards() throws IOException {
 		SortedListOf<Contact> contacts = applicationManager.getContactHelper().getContacts();

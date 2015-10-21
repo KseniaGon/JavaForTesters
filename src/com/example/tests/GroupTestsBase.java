@@ -1,5 +1,6 @@
 package com.example.tests;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -12,6 +13,10 @@ import com.example.generators.RandomGroupsGenerator;
 import com.example.utils.SortedListOf;
 
 public class GroupTestsBase extends TestBase {
+
+	public GroupTestsBase() throws IOException {
+		super();
+	}
 
 	protected SortedListOf<Group> getGroups() {
 		return applicationManager.getGroupHelper().getGroups();

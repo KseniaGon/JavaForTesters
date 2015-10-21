@@ -1,5 +1,6 @@
 package com.example.tests;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -13,6 +14,10 @@ import com.example.utils.SortedListOf;
 
 public class ContactTestsBase extends TestBase {
 	
+	public ContactTestsBase() throws IOException {
+		super();
+	}
+
 	@DataProvider
 	protected Iterator<Object[]> randomDataProvider() {
 		List<Object[]> result = new ArrayList<Object[]>();

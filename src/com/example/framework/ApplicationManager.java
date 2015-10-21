@@ -1,5 +1,7 @@
 package com.example.framework;
 
+import java.util.Properties;
+
 public class ApplicationManager {
 	private DriverManager driverManager;
 	private ContactHelper contactHelper;
@@ -8,9 +10,9 @@ public class ApplicationManager {
 	
 	private String applicationBaseUrl;
 
-	public ApplicationManager(String applicationBaseUrl) {
-		driverManager = new DriverManager();
-		this.applicationBaseUrl = applicationBaseUrl;
+	public ApplicationManager(Properties properties) {
+		driverManager = new DriverManager(properties.getProperty("browser"));
+		this.applicationBaseUrl = properties.getProperty("baseUrl");
 	}
 
 	public void setUp() throws Exception {

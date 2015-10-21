@@ -1,5 +1,9 @@
 package com.example.tests;
 
+import java.io.FileReader;
+import java.io.IOException;
+import java.io.Reader;
+import java.util.Properties;
 import java.util.Random;
 
 import org.testng.annotations.AfterSuite;
@@ -12,8 +16,14 @@ public class TestBase {
 	protected ApplicationManager applicationManager;
 			
 
-	public TestBase() {
-		applicationManager = new ApplicationManager("http://localhost/addressbookv4.1.4/");
+	public TestBase() throws IOException {
+		Properties properties = new Properties();
+		Reader reader = new FileReader(System.getProperty("configFile", "firefox.properties"));
+		properties.load(reader);
+		reader.close();
+		
+		applicationManager = new ApplicationManager(properties);
+		
 	}
 	
 	@BeforeMethod

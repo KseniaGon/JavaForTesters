@@ -1,6 +1,9 @@
 package com.example.tests;
 
 import static org.hamcrest.MatcherAssert.assertThat;
+
+import java.io.IOException;
+
 import static org.hamcrest.CoreMatchers.equalTo;
 
 import org.testng.annotations.Test;
@@ -9,6 +12,10 @@ import com.example.framework.Contact;
 import com.example.utils.SortedListOf;
 
 public class ContactModificationTests extends ContactTestsBase {
+
+	public ContactModificationTests() throws IOException {
+		super();
+	}
 
 	@Test(dataProvider = "randomDataProvider")
 	public void UpdateContact(Contact contact) {
