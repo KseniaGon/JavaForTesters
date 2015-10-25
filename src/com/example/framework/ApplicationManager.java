@@ -9,6 +9,7 @@ public class ApplicationManager {
 	private CardsHelper cardsHelper;
 	
 	private String applicationBaseUrl;
+	private HibernateHelper hibernateHelper;
 
 	public ApplicationManager(Properties properties) {
 		driverManager = new DriverManager(properties.getProperty("browser"));
@@ -25,14 +26,21 @@ public class ApplicationManager {
 
 	public GroupHelper getGroupHelper() {
 		if(groupHelper==null) {
-			groupHelper = new GroupHelper(driverManager, getNavigationHelper(applicationBaseUrl));
+			groupHelper = new GroupHelper(driverManager, getNavigationHelper(applicationBaseUrl), getHibernateHelper());
 		}
 		return groupHelper;
 	}
 
+	private HibernateHelper getHibernateHelper() {
+		if(hibernateHelper==null) {
+			hibernateHelper = new HibernateHelper();
+		}
+		return hibernateHelper;
+	}
+
 	public ContactHelper getContactHelper() {
 		if(contactHelper==null) {
-			contactHelper = new ContactHelper(driverManager, getNavigationHelper( applicationBaseUrl));
+			contactHelper = new ContactHelper(driverManager, getNavigationHelper(applicationBaseUrl), getHibernateHelper());
 		}
 		return contactHelper;
 	}

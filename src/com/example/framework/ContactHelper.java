@@ -9,9 +9,11 @@ import com.example.utils.SortedListOf;
 
 public class ContactHelper extends HelperBase {
 	private static SortedListOf<Contact> cache;
+	private HibernateHelper hibernateHelper;
 
-	public ContactHelper(DriverManager driverManager, NavigationHelper navigationHelper) {
+	public ContactHelper(DriverManager driverManager, NavigationHelper navigationHelper, HibernateHelper hibernateHelper) {
 		super(driverManager, navigationHelper);
+		this.hibernateHelper = hibernateHelper;
 	}
 
 	public void create(Contact contact) {
@@ -57,7 +59,7 @@ public class ContactHelper extends HelperBase {
 		navigateTo().home();
 		
 		if( cache==null ) {
-			cache = ensureContacts();
+			cache = ensureDbContacts();
 		}
 		return cache;
 	}
@@ -78,7 +80,11 @@ public class ContactHelper extends HelperBase {
 		cache = null;
 	}
 
-	private SortedListOf<Contact> ensureContacts() {
+	private SortedListOf<Contact> ensureDbContacts() {
+		return hibernateHelper.getContacts();
+	}
+	
+	protected SortedListOf<Contact> ensureUiContacts() {
 		List<WebElement> firstNames = findElementsBy(By.xpath("//table[@id='maintable']/tbody/tr/td[2]"));
 		List<WebElement> lastNames = findElementsBy(By.xpath("//table[@id='maintable']/tbody/tr/td[3]"));
 		List<WebElement> phones = findElementsBy(By.xpath("//table[@id='maintable']/tbody/tr/td[5]"));

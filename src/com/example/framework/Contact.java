@@ -77,6 +77,27 @@ public class Contact implements Comparable<Contact> {
 		return true;
 	}
 
+	public String getId() {
+		return id;
+	}
+
+	public void setId(String id) {
+		this.id = id;
+	}
+
+	public void setFirstName(String firstName) {
+		this.firstName = firstName;
+	}
+
+	public void setLastName(String lastName) {
+		this.lastName = lastName;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
+
+	private String id;
 	private String firstName;
 	private String lastName;
 	private String address;
@@ -134,6 +155,10 @@ public class Contact implements Comparable<Contact> {
 	public Contact withPhone(String phone) {
 		this.homePhone = phone;
 		return this;
+	}
+
+	public void setHomePhone(String homePhone) {
+		this.homePhone = homePhone;
 	}
 
 }

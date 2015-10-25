@@ -46,6 +46,27 @@ public class Group implements Comparable<Group> {
 	private String name;
 	private String header;
 	private String footer;
+	private String id;
+
+	public String getId() {
+		return id;
+	}
+
+	public void setId(String id) {
+		this.id = id;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public void setHeader(String header) {
+		this.header = header;
+	}
+
+	public void setFooter(String footer) {
+		this.footer = footer;
+	}
 
 	public Group(String name, String header, String footer) {
 		this.name = name;
@@ -73,6 +94,11 @@ public class Group implements Comparable<Group> {
 	
 	public Group withName(String name) {
 		this.name = name;
+		return this;
+	}
+
+	public Group withId(String id) {
+		this.id = id;
 		return this;
 	}
 }

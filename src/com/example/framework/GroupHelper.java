@@ -9,9 +9,11 @@ import com.example.utils.SortedListOf;
 
 public class GroupHelper extends HelperBase {
 	private static SortedListOf<Group> cache;
+	private HibernateHelper hiberNateHelper;
 	
-	public GroupHelper(DriverManager driverManager, NavigationHelper navigationHelper) {
+	public GroupHelper(DriverManager driverManager, NavigationHelper navigationHelper, HibernateHelper hiberNateHelper) {
 		super(driverManager, navigationHelper);
+		this.hiberNateHelper = hiberNateHelper;
 	}
 
 	public void create(Group group) {
@@ -57,7 +59,7 @@ public class GroupHelper extends HelperBase {
 		navigateTo().groups();
 		
 		if( cache==null ) {
-			cache = ensureGroups();
+			cache = ensureDbGroups();
 		}
 		return cache;
 	}
@@ -72,7 +74,12 @@ public class GroupHelper extends HelperBase {
 			.fillInput("group_footer", group.getFooter());
 	}
 
-	protected SortedListOf<Group> ensureGroups() {
+	protected SortedListOf<Group> ensureDbGroups() {
+		return hiberNateHelper.listGroups();
+	}
+	
+	
+	protected SortedListOf<Group> ensureUiGroups() {
 		List<WebElement> elements = findElementsBy(By.xpath("//input[@name='selected[]']"));
 		SortedListOf<Group> groups = new SortedListOf<Group>();
 
