@@ -45,6 +45,10 @@ public class HelperBase {
 		return this;
 	}
 
+	protected String getInputValue(String name) {
+		return findElementByName(name).getAttribute("value");
+	}
+	
 	protected HelperBase selectByVisibleText(String elementName, String text) {
 		if (text != null) {
 			new Select(driverManager.getWebDriver().findElement(By.name(elementName))).selectByVisibleText(text);

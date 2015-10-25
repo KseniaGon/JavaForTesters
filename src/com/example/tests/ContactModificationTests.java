@@ -18,7 +18,7 @@ public class ContactModificationTests extends ContactTestsBase {
 	}
 
 	@Test(dataProvider = "randomDataProvider")
-	public void UpdateContact(Contact contact) {
+	public void updateContact(Contact contact) {
 		SortedListOf<Contact> oldList = getContacts();
 		
 		int index = getRandomValue(oldList.size()-1);
@@ -31,5 +31,14 @@ public class ContactModificationTests extends ContactTestsBase {
 						.withDeleted(index)
 						.withAdded(contact)));			
 	}
-	
+
+	@Test()
+	public void verifyContactDetails() {
+		SortedListOf<Contact> oldList = getContacts();
+		
+		int index = getRandomValue(oldList.size()-1);
+		Contact contact = applicationManager.getContactHelper().getContactDetails(index);
+		
+		assertThat(oldList.get(index), equalTo(contact));
+	}
 }

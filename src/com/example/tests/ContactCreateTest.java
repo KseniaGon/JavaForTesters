@@ -33,5 +33,6 @@ public class ContactCreateTest extends ContactTestsBase {
 		applicationManager.getContactHelper().create(contact);
 		
 		assertThat(getContacts(), equalTo(oldList.withAdded(contact)));
+		applicationManager.getContactHelper().verifyConsistency();
 	}
 }

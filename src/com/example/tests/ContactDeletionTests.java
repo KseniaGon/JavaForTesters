@@ -18,7 +18,7 @@ public class ContactDeletionTests extends ContactTestsBase {
 	}
 
 	@Test
-	public void DeleteContact() {
+	public void deleteContact() {
 		SortedListOf<Contact> oldList = getContacts();
 		
 		int index = getRandomValue(oldList.size()-1);

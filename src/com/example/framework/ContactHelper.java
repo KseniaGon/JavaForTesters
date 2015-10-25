@@ -1,18 +1,28 @@
 package com.example.framework;
 
 import java.util.List;
+import java.util.Properties;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
+import org.testng.Assert;
 
 import com.example.utils.SortedListOf;
 
 public class ContactHelper extends HelperBase {
-	private static SortedListOf<Contact> cache;
 	private HibernateHelper hibernateHelper;
+	private int uiCheckLimit;
+	private int dbCheckLimit;
+	private static int consistencyUiCheckCounter = 0;
+	private static int consistencyDbCheckCounter = 0;
+	private static ContactsModel model = new ContactsModel();
+	private Properties properties;
 
-	public ContactHelper(DriverManager driverManager, NavigationHelper navigationHelper, HibernateHelper hibernateHelper) {
+	public ContactHelper(Properties properties, DriverManager driverManager, NavigationHelper navigationHelper, HibernateHelper hibernateHelper) {
 		super(driverManager, navigationHelper);
+		this.properties = properties;
+		uiCheckLimit = getIntProperty("checkContacts.ui.limit", 5);
+		dbCheckLimit = getIntProperty("checkContacts.db.limit", 2);
 		this.hibernateHelper = hibernateHelper;
 	}
 
@@ -22,26 +32,40 @@ public class ContactHelper extends HelperBase {
 
 		try {
 			clickByName("submit");
+			model.addElement(contact);
 		}
-		finally {
-			invalidateCache();
+		catch( Exception e ) {
+			model.invalidate();
+			throw e;
 		}
 	}
 
 	public void update(int index, Contact contact) {
-		navigateTo().home();
-
-		selectContact(index)
+		selectContactInternal(index)
 			.fillForm(contact);
 
 		try {
 			clickOnUpdate();
+			model.replaceElement(index, contact);
 		}
-		finally {
-			invalidateCache();
+		catch( Exception e ) {
+			model.invalidate();
+			throw e;
 		}
 	}
 
+	public Contact getContactDetails(int index) {
+		selectContactInternal(index);
+
+		Contact result = new Contact();
+		result.setFirstName(getInputValue("lastname"));
+		result.setLastName(getInputValue("firstname"));
+		result.setHomePhone(getInputValue("home"));
+
+		return result; 
+	}
+
+	
 	public void delete(int index) {
 		navigateTo().home();
 
@@ -49,19 +73,20 @@ public class ContactHelper extends HelperBase {
 		
 		try{
 			clickOnDelete();
+			model.deleteElement(index);
 		}
-		finally {
-			invalidateCache();
+		catch( Exception e ) {
+			model.invalidate();
+			throw e;
 		}
 	}
 
 	public SortedListOf<Contact> getContacts() {
-		navigateTo().home();
-		
-		if( cache==null ) {
-			cache = ensureDbContacts();
+
+		if( !model.isValid() ) {
+			model.fill(ensureDbContacts());
 		}
-		return cache;
+		return model.getItems();
 	}
 
 	public SortedListOf<Card> convertToCards(SortedListOf<Contact> contacts) {
@@ -76,15 +101,13 @@ public class ContactHelper extends HelperBase {
 		return result;
 	}
 
-	private void invalidateCache() {
-		cache = null;
-	}
-
 	private SortedListOf<Contact> ensureDbContacts() {
 		return hibernateHelper.getContacts();
 	}
 	
-	protected SortedListOf<Contact> ensureUiContacts() {
+	private SortedListOf<Contact> ensureUiContacts() {
+		navigateTo().home();
+
 		List<WebElement> firstNames = findElementsBy(By.xpath("//table[@id='maintable']/tbody/tr/td[2]"));
 		List<WebElement> lastNames = findElementsBy(By.xpath("//table[@id='maintable']/tbody/tr/td[3]"));
 		List<WebElement> phones = findElementsBy(By.xpath("//table[@id='maintable']/tbody/tr/td[5]"));
@@ -156,5 +179,42 @@ public class ContactHelper extends HelperBase {
 		else {
 			return String.format("%s %s", lastName, firstName);
 		}
+	}
+
+	public void verifyConsistency() {
+		consistencyDbCheckCounter++;
+		consistencyUiCheckCounter++;
+		
+		if( dbCheckLimit>0 && consistencyDbCheckCounter>dbCheckLimit ) {
+			verifyDb();
+			consistencyDbCheckCounter = 0;
+		}
+
+		if( uiCheckLimit>0 && consistencyUiCheckCounter>uiCheckLimit ) {
+			verifyUi();
+			consistencyUiCheckCounter = 0;
+		}
+	}
+
+	private void verifyUi() {
+		Assert.assertEquals(model.getItems(), ensureUiContacts());
+	}
+
+	private void verifyDb() {
+		Assert.assertEquals(model.getItems(), ensureDbContacts());
+	}
+
+	private int getIntProperty(String name, int defaultValue) {
+		String property = properties.getProperty(name);
+		if( property==null) {
+			return defaultValue;
+		}
+		return Integer.parseInt(property);
+	}
+
+	private ContactHelper selectContactInternal(int index) {
+		navigateTo().home();
+
+		return selectContact(index);
 	}
 }

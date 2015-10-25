@@ -10,8 +10,10 @@ public class ApplicationManager {
 	
 	private String applicationBaseUrl;
 	private HibernateHelper hibernateHelper;
+	private Properties properties;
 
 	public ApplicationManager(Properties properties) {
+		this.properties = properties;
 		driverManager = new DriverManager(properties.getProperty("browser"));
 		this.applicationBaseUrl = properties.getProperty("baseUrl");
 	}
@@ -40,7 +42,7 @@ public class ApplicationManager {
 
 	public ContactHelper getContactHelper() {
 		if(contactHelper==null) {
-			contactHelper = new ContactHelper(driverManager, getNavigationHelper(applicationBaseUrl), getHibernateHelper());
+			contactHelper = new ContactHelper(properties, driverManager, getNavigationHelper(applicationBaseUrl), getHibernateHelper());
 		}
 		return contactHelper;
 	}
